@@ -31,6 +31,7 @@
     radial-gradient(35vw 35vw at 30% 100%, rgba(34, 230, 255, .07), transparent 70%);
   --grain-opacity: .09;
   --leaf-opacity: 0;
+  --leaf-1: #3a2a55; --leaf-2: #2a1f40;
   --checker-a: #1a1422; --checker-b: #110d17;
   color-scheme: dark;
 }
@@ -60,7 +61,8 @@
     radial-gradient(40vw 40vw at 0% 70%, rgba(196, 69, 28, .12), transparent 70%),
     radial-gradient(45vw 45vw at 70% 100%, rgba(46, 91, 50, .14), transparent 70%);
   --grain-opacity: .07;
-  --leaf-opacity: .13;
+  --leaf-opacity: .9;
+  --leaf-1: #2e5b32; --leaf-2: #5d8a3a;   /* vert jungle profond + vert feuille jeune */
   --checker-a: #efe2cc; --checker-b: #e6d5b8;
   color-scheme: light;
 }
@@ -96,10 +98,15 @@ body::after {
 .section--alt { background: color-mix(in srgb, var(--bg-alt) 85%, transparent); }
 
 /* Feuilles tropicales (thème jungle uniquement) */
-.leaf { position: absolute; width: 340px; height: 340px; pointer-events: none; opacity: var(--leaf-opacity); color: var(--accent-2); transition: opacity .6s; z-index: 0; }
-.leaf svg { width: 100%; height: 100%; }
-.leaf--tr { top: -60px; right: -90px; transform: rotate(200deg); }
-.leaf--bl { bottom: -80px; left: -110px; transform: rotate(25deg); }
+.leaf { position: absolute; width: 380px; height: 420px; pointer-events: none; opacity: var(--leaf-opacity); transition: opacity .6s; z-index: 0; }
+.leaf svg { position: absolute; overflow: visible; filter: drop-shadow(0 18px 24px rgba(30, 50, 20, .28)); transform-origin: 55% 100%; animation: sway 9s ease-in-out infinite alternate; }
+.leaf__a { width: 100%; height: 100%; inset: 0; color: var(--leaf-1); }
+.leaf__b { width: 62%; height: 62%; color: var(--leaf-2); animation-duration: 7s !important; animation-delay: -3s !important; }
+.leaf--tr { top: -90px; right: -120px; transform: rotate(205deg); }
+.leaf--tr .leaf__b { left: -34%; top: 30%; transform: rotate(-38deg); }
+.leaf--bl { bottom: -110px; left: -130px; transform: rotate(28deg); }
+.leaf--bl .leaf__b { right: -30%; top: 22%; transform: rotate(34deg); }
+@keyframes sway { from { rotate: -2.5deg; } to { rotate: 3deg; } }
 .section > .wrap { position: relative; z-index: 1; }
 
 /* Titres façon Haviah : majuscules épaisses + barre de couleur */
@@ -266,7 +273,12 @@ body::after {
   -webkit-text-stroke: 1.5px color-mix(in srgb, var(--accent) 35%, transparent);
   animation: marquee 60s linear infinite;
 }
-[data-theme="light"] #videos::after { -webkit-text-stroke: 0; color: color-mix(in srgb, var(--accent-3) 22%, transparent); }
+/* Jungle : lettres pleines en dégradé soleil → terracotta → vert, comme la barre des titres */
+[data-theme="light"] #videos::after {
+  -webkit-text-stroke: 0; color: transparent;
+  background: linear-gradient(90deg, var(--accent-3), var(--accent), var(--accent-2), var(--accent-3)) 0 0 / 50% 100% repeat-x;
+  -webkit-background-clip: text; background-clip: text; opacity: .42;
+}
 /* Rave : contour néon bien visible + léger halo */
 [data-theme="dark"] #videos::after {
   -webkit-text-stroke: 2px color-mix(in srgb, var(--accent) 85%, transparent);
@@ -438,7 +450,7 @@ body::after {
   .nav { padding: 0 8px 0 16px; }
   .nav__logo img { height: 32px; }
   .section { padding: 80px 0; }
-  .leaf { width: 220px; height: 220px; }
+  .leaf { width: 230px; height: 254px; }
   .gig { grid-template-columns: 64px 1fr; gap: 16px; }
   .gig__day { font-size: 2rem; }
   .gig__type, .gig .btn { grid-column: 2; justify-self: start; }

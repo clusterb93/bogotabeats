@@ -28,11 +28,51 @@
 </head>
 <body>
 
-<!-- Feuille tropicale réutilisée dans le thème Jungle -->
+<!-- Feuille de Monstera (thème Jungle) : cœur fendu + perforations, découpées par un masque -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="leaf" viewBox="0 0 200 200">
-    <path fill="currentColor" d="M100 6c-8 30-46 34-62 64-12 22-6 52 8 72-14-26 2-46 18-58-14 22-12 48 4 68-6-28 10-50 22-60-6 28-2 52 10 70 0-28 12-50 24-60 2 28 10 48 26 60-6-26 0-50 12-64 8 24 22 40 34 46-10-24-8-50 2-70 10 18 14 32 12 44 10-26 10-58-6-82C186 40 120 40 100 6z"/>
-    <path fill="none" stroke="currentColor" stroke-width="3" d="M100 8c6 60 2 130-8 190"/>
+  <defs>
+    <mask id="monstera-cut" maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="230">
+      <rect width="200" height="230" fill="#fff"/>
+      <g fill="none" stroke="#000" stroke-width="7" stroke-linecap="round">
+        <!-- fentes côté gauche, de la nervure vers le bord -->
+        <path d="M82 42 Q58 33 28 36"/>
+        <path d="M77 66 Q46 57 4 63"/>
+        <path d="M75 92 Q40 86 -4 98"/>
+        <path d="M75 118 Q40 116 -4 134"/>
+        <path d="M78 143 Q50 148 6 176"/>
+        <path d="M84 163 Q66 178 38 206"/>
+        <!-- fentes côté droit (miroir) -->
+        <path d="M118 42 Q142 33 172 36"/>
+        <path d="M123 66 Q154 57 196 63"/>
+        <path d="M125 92 Q160 86 204 98"/>
+        <path d="M125 118 Q160 116 204 134"/>
+        <path d="M122 143 Q150 148 194 176"/>
+        <path d="M116 163 Q134 178 162 206"/>
+      </g>
+      <g fill="#000">
+        <!-- perforations le long de la nervure -->
+        <ellipse cx="88" cy="54" rx="3.5" ry="7" transform="rotate(-18 88 54)"/>
+        <ellipse cx="86" cy="79" rx="4" ry="8" transform="rotate(-12 86 79)"/>
+        <ellipse cx="86" cy="105" rx="4" ry="8" transform="rotate(-8 86 105)"/>
+        <ellipse cx="88" cy="130" rx="3.5" ry="7" transform="rotate(-4 88 130)"/>
+        <ellipse cx="112" cy="54" rx="3.5" ry="7" transform="rotate(18 112 54)"/>
+        <ellipse cx="114" cy="79" rx="4" ry="8" transform="rotate(12 114 79)"/>
+        <ellipse cx="114" cy="105" rx="4" ry="8" transform="rotate(8 114 105)"/>
+        <ellipse cx="112" cy="130" rx="3.5" ry="7" transform="rotate(4 112 130)"/>
+      </g>
+    </mask>
+  </defs>
+  <symbol id="monstera" viewBox="0 0 200 230">
+    <!-- tige -->
+    <path d="M100 176 C101 196 104 212 110 229" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+    <!-- limbe en cœur, échancrure à la base, pointe en haut -->
+    <path mask="url(#monstera-cut)" fill="currentColor" d="M100 178 C78 198 22 196 10 146 C-2 92 38 24 100 8 C162 24 202 92 190 146 C178 196 122 198 100 178 Z"/>
+    <!-- nervure centrale et nervures secondaires, en clair -->
+    <g mask="url(#monstera-cut)" fill="none" stroke="#fff" stroke-opacity=".22" stroke-linecap="round">
+      <path d="M100 176 L100 14" stroke-width="2.5"/>
+      <path d="M100 30 Q80 28 60 40 M100 54 Q76 50 50 58 M100 80 Q72 76 36 84 M100 106 Q70 104 28 114 M100 132 Q72 134 32 150 M100 156 Q80 164 56 184" stroke-width="1.2"/>
+      <path d="M100 30 Q120 28 140 40 M100 54 Q124 50 150 58 M100 80 Q128 76 164 84 M100 106 Q130 104 172 114 M100 132 Q128 134 168 150 M100 156 Q120 164 144 184" stroke-width="1.2"/>
+    </g>
   </symbol>
 </svg>
 
@@ -77,7 +117,7 @@
 
   <!-- SETS -->
   <section class="section" id="sets">
-    <div class="leaf leaf--tr"><svg><use href="#leaf"/></svg></div>
+    <div class="leaf leaf--tr" aria-hidden="true"><svg class="leaf__a" viewBox="0 0 200 230"><use href="#monstera"/></svg><svg class="leaf__b" viewBox="0 0 200 230"><use href="#monstera"/></svg></div>
     <div class="wrap">
       <h2 class="h2" data-i18n="sets.title">Latest sets</h2>
       <div class="sets" id="setsGrid"></div>
@@ -97,7 +137,7 @@
 
   <!-- VIDEOS (Drive) -->
   <section class="section" id="videos">
-    <div class="leaf leaf--bl"><svg><use href="#leaf"/></svg></div>
+    <div class="leaf leaf--bl" aria-hidden="true"><svg class="leaf__a" viewBox="0 0 200 230"><use href="#monstera"/></svg><svg class="leaf__b" viewBox="0 0 200 230"><use href="#monstera"/></svg></div>
     <div class="wrap">
       <div class="carousel__head">
         <h2 class="h2" data-i18n="videos.title">Videos</h2>
@@ -118,7 +158,7 @@
 
   <!-- EPK -->
   <section class="section epk section--alt" id="epk">
-    <div class="leaf leaf--tr"><svg><use href="#leaf"/></svg></div>
+    <div class="leaf leaf--tr" aria-hidden="true"><svg class="leaf__a" viewBox="0 0 200 230"><use href="#monstera"/></svg><svg class="leaf__b" viewBox="0 0 200 230"><use href="#monstera"/></svg></div>
     <div class="wrap">
       <h2 class="epk__title">- EPK -</h2>
       <p class="epk__lead" data-i18n="epk.lead"></p>
