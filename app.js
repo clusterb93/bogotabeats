@@ -101,6 +101,9 @@ function renderBrand() {
     $('#heroPic').innerHTML = `
       <source media="(max-width: 700px)" srcset="${drive.img(heroM.id, 900)}">
       <img src="${drive.img(hero.id, 2200)}" alt="BogotaBeats" fetchpriority="high">`;
+    // Cadrage facultatif de la photo d'accueil : "heroPosition": { "dark": "50% 20%", "light": "40% 30%" }
+    const pos = forTheme(site.drive?.heroPosition);
+    $('.hero').style.setProperty('--hero-pos', pos || '50% 25%');
   }
   const booking = photo('bookingPhoto', 1);
   if (booking) $('#contactBg').innerHTML = `<img src="${drive.img(booking.id, 1800)}" alt="" loading="lazy" referrerpolicy="no-referrer">`;

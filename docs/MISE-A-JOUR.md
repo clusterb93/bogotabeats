@@ -120,6 +120,8 @@ Dans `content/site.json → drive`, une photo **par thème** (nom exact du fichi
 "featuredVideo": "BOGOTABEATS_PROMO.mp4"
 ```
 
+**Cadrage** : `"heroPosition": { "dark": "50% 20%", "light": "45% 30%" }` déplace le point de focus de la photo d'accueil (horizontal puis vertical, en %). Sur ordinateur, la photo occupe la droite de l'écran et le logo la gauche, pour ne jamais masquer le visage.
+
 On peut aussi mettre un simple nom (`"hero": "DSC01144.jpg"`) pour utiliser la même photo dans
 les deux thèmes, et `"heroMobile"` pour une photo différente sur téléphone.
 Si un fichier est renommé ou supprimé, le site prend une autre photo automatiquement
