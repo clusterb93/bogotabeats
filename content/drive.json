@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-10-13T09:59:26.474Z",
+  "syncedAt": "2026-10-13T10:16:45.982Z",
   "id": "1i7wBmtRWy71WacUW7GR61aymIdeZMwTe",
   "name": "PackPresse",
   "files": [
@@ -51,11 +51,6 @@
       "id": "1psQEiyvefx-dgglSud34ByoyCxR3epNp",
       "name": "Photos",
       "files": [
-        {
-          "id": "1dmTXicC-fY93wVYB-xYnLlEFyYwtPeeA",
-          "name": "0EE2CF14-249C-4DEC-B524-F55946D623D1.jpg",
-          "kind": "image"
-        },
         {
           "id": "1-YsyGwYgWFbd22iu5Wvw4Xh6PW8a3AHK",
           "name": "17CD404A-377F-4FBD-B43F-960A7ACAC5DB_1_105_c.jpeg",
@@ -201,11 +196,6 @@
         {
           "id": "1JJTa0vRggc_iM6VhQMM0LvK9mm2WkOrp",
           "name": "HomeSession_c.mp4",
-          "kind": "video"
-        },
-        {
-          "id": "1zZxkkZHlWcYVSSnL_tmOuYg5SAyvsfn6",
-          "name": "IMG_4121.MOV",
           "kind": "video"
         },
         {
