@@ -63,7 +63,7 @@
       <p class="hero__tag" id="tagline"></p>
       <div class="hero__cta">
         <a class="btn btn--accent" href="#contact" data-i18n="cta.book">Book now</a>
-        <a class="btn btn--ghost" href="#sets" data-i18n="cta.listen">Listen to a set</a>
+        <a class="btn btn--ghost" id="listenBtn" href="#sets" target="_blank" rel="noopener" data-i18n="cta.listen">Listen to a set</a>
       </div>
     </div>
     <a class="hero__scroll" href="#sets" aria-label="Scroll">↓</a>
@@ -93,9 +93,20 @@
   <section class="section" id="videos">
     <div class="leaf leaf--bl"><svg><use href="#leaf"/></svg></div>
     <div class="wrap">
-      <h2 class="h2" data-i18n="videos.title">Videos</h2>
-      <div class="video-feature" id="videoFeature"></div>
-      <div class="video-grid" id="videoGrid"></div>
+      <div class="carousel__head">
+        <h2 class="h2" data-i18n="videos.title">Videos</h2>
+        <div class="carousel__ctrl">
+          <span class="carousel__count" id="vidCount" aria-live="polite"></span>
+          <button class="carousel__arrow" id="vidPrev" type="button" aria-label="Previous">←</button>
+          <button class="carousel__arrow" id="vidNext" type="button" aria-label="Next">→</button>
+        </div>
+      </div>
+    </div>
+    <div class="carousel" id="videoCarousel" tabindex="0" aria-roledescription="carousel" aria-label="Videos">
+      <div class="carousel__track" id="vidTrack"></div>
+    </div>
+    <div class="wrap">
+      <div class="carousel__progress"><span id="vidBar"></span></div>
     </div>
   </section>
 

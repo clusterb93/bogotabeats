@@ -197,7 +197,73 @@ body::after {
 #morePast { margin-top: 28px; }
 
 /* VIDEOS */
-.video-feature { margin-bottom: 28px; }
+/* Carrousel vidéos : carte centrée en avant, voisines en retrait, bandeau de texte défilant derrière */
+#videos { padding-bottom: 90px; }
+.carousel__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.carousel__ctrl { display: flex; align-items: center; gap: 10px; margin-bottom: 40px; }
+.carousel__count { font: 400 1.1rem/1 var(--display); letter-spacing: .12em; color: var(--muted); margin-right: 8px; }
+.carousel__count b { font-weight: 400; font-size: 1.9rem; color: var(--text); }
+.carousel__arrow { width: 54px; height: 54px; border: 1px solid var(--line); background: transparent; color: var(--text); font-size: 1.3rem; transition: background .2s, color .2s, border-color .2s, box-shadow .2s, opacity .2s; }
+.carousel__arrow:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: var(--on-accent); box-shadow: var(--btn-glow); }
+.carousel__arrow:disabled { opacity: .3; cursor: default; }
+[data-theme="light"] .carousel__arrow { border-radius: 50%; }
+
+.carousel {
+  --card-h: min(72vh, 640px);
+  --card-w: calc(var(--card-h) * 9 / 16);
+  position: relative; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none;
+  padding: 40px 0 46px; outline: none; cursor: grab; overscroll-behavior-x: contain;
+}
+.carousel::-webkit-scrollbar { display: none; }
+.carousel.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.carousel.is-dragging .vcard { pointer-events: none; }
+.carousel:focus-visible { box-shadow: inset 0 0 0 2px var(--accent); }
+.carousel__track { display: flex; gap: 28px; width: max-content; padding-inline: calc(50vw - var(--card-w) / 2); position: relative; }
+
+/* Bandeau texte géant défilant derrière les cartes */
+#videos { overflow: hidden; }
+#videos::after {
+  content: 'BOGOTA BEATS ✦ LIVE ✦ BOGOTA BEATS ✦ LIVE ✦ BOGOTA BEATS ✦ LIVE ✦ BOGOTA BEATS ✦ LIVE ✦ ';
+  position: absolute; left: 0; top: 50%; transform: translateY(-30%); white-space: nowrap; z-index: 0; pointer-events: none;
+  font: 400 clamp(6rem, 17vw, 15rem)/1 var(--display); letter-spacing: .02em; color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--accent) 35%, transparent);
+  animation: marquee 60s linear infinite;
+}
+[data-theme="light"] #videos::after { -webkit-text-stroke: 0; color: color-mix(in srgb, var(--accent-3) 22%, transparent); }
+@keyframes marquee { from { translate: 0 0; } to { translate: -50% 0; } }
+#videos > .wrap, .carousel { position: relative; z-index: 1; }
+
+.vcard { flex: none; width: var(--card-w); height: var(--card-h); scroll-snap-align: center; transition: transform .5s cubic-bezier(.2,.8,.2,1), opacity .5s, filter .5s; transform: scale(.84); opacity: .45; filter: saturate(.4) brightness(.7); }
+.vcard.is-active { transform: scale(1); opacity: 1; filter: none; }
+.vcard__media { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: #111 center/cover; overflow: hidden; cursor: pointer; }
+.vcard__media::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.35), transparent 30%, transparent 60%, rgba(0,0,0,.7)); transition: opacity .3s; z-index: 1; }
+.vcard__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+.vcard__media iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 3; background: #000; }
+.vcard .yt__play { z-index: 2; opacity: 0; transform: scale(.6); transition: opacity .3s, transform .3s; }
+.vcard.is-active .yt__play { opacity: 1; transform: scale(1); }
+.vcard.is-active .vcard__media:hover .yt__play { transform: scale(1.12); }
+.vcard__num { position: absolute; z-index: 2; left: 18px; bottom: 12px; font: 400 3.4rem/1 var(--display); color: #fff; letter-spacing: .02em; text-shadow: 0 2px 20px rgba(0,0,0,.5); }
+
+/* Rave : cadre néon tournant autour de la carte active */
+[data-theme="dark"] .vcard { position: relative; }
+[data-theme="dark"] .vcard.is-active::before {
+  content: ''; position: absolute; inset: -3px; z-index: -1;
+  background: conic-gradient(from var(--spin, 0deg), var(--accent), var(--accent-2), var(--accent-3), var(--accent));
+  animation: spin 4s linear infinite;
+}
+[data-theme="dark"] .vcard.is-active::after { content: ''; position: absolute; inset: -3px; z-index: -2; filter: blur(26px); opacity: .7;
+  background: conic-gradient(from var(--spin, 0deg), var(--accent), var(--accent-2), var(--accent-3), var(--accent)); animation: spin 4s linear infinite; }
+@property --spin { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes spin { to { --spin: 360deg; } }
+[data-theme="dark"] .vcard__num { -webkit-text-stroke: 1px #fff; color: transparent; }
+
+/* Jungle : cartes arrondies, ombre chaude, voisines sépia */
+[data-theme="light"] .vcard__media { border-radius: 22px; box-shadow: 0 24px 50px -18px rgba(43, 28, 18, .55); }
+[data-theme="light"] .vcard:not(.is-active) { filter: sepia(.6) saturate(.7) brightness(.95); }
+[data-theme="light"] .vcard.is-active .vcard__media { outline: 4px solid var(--accent-3); outline-offset: 6px; }
+
+.carousel__progress { height: 3px; background: var(--line); position: relative; max-width: 420px; margin: 0 auto; }
+.carousel__progress span { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--bar); transition: width .5s cubic-bezier(.2,.8,.2,1); }
 .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; }
 .vthumb { position: relative; aspect-ratio: 9/16; background: #111 center/cover; border: 0; padding: 0; overflow: hidden; width: 100%; }
 .vthumb--wide { aspect-ratio: 16/9; }
@@ -263,7 +329,8 @@ body::after {
 
 /* CONTACT */
 .contact { position: relative; padding: 140px 0; overflow: hidden; text-align: center; }
-.contact__bg { position: absolute; inset: 0; background: center/cover; filter: var(--contact-filter); }
+.contact__bg { position: absolute; inset: 0; filter: var(--contact-filter); }
+.contact__bg img { width: 100%; height: 100%; object-fit: cover; }
 .contact__bg::after { content: ''; position: absolute; inset: 0; background: var(--contact-tint); }
 .contact__inner { position: relative; }
 .contact .h2::after { left: 50%; transform: translateX(-50%); }
@@ -333,6 +400,10 @@ body::after {
   .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
   .stat:last-child { grid-column: span 2; border-left: 0; }
   .video-grid { grid-template-columns: repeat(2, 1fr); }
+  .carousel { --card-h: min(66vh, 560px); }
+  .carousel__track { gap: 14px; }
+  .carousel__arrow { width: 46px; height: 46px; }
+  .vcard__num { font-size: 2.6rem; }
   .empty-upcoming { padding: 24px; }
   .lightbox { padding: 50px 8px 90px; }
   .lightbox__nav { font-size: 2.4rem; top: auto; bottom: 14px; transform: none; }

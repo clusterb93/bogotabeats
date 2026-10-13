@@ -12,7 +12,7 @@ Site + EPK du DJ **BogotaBeats**. Statique, sans dépendance ni build. Docs dét
 - Toute nouvelle couleur passe par une **variable CSS définie dans les deux thèmes** (Rave & Jungle).
   Garder l'identité : Rave = néon/post-apo/queer club ; Jungle = forêt/terre/chaleur.
 - Dates : format `AAAA-MM-JJ`, tri passé/à venir automatique — ne jamais créer de liste « à venir » manuelle.
-- Garder `<meta name="referrer" content="no-referrer">` (sinon les images Drive cassent).
+- Garder `<meta name="referrer" content="no-referrer">` et afficher les images Drive avec `<img referrerpolicy="no-referrer">`, jamais en `background-image` CSS (sinon Google les refuse).
 - Après modification : `node scripts/check-content.mjs`, puis vérifier visuellement avec
   `node scripts/serve.mjs` (config `.claude/launch.json`) dans les 2 thèmes et en mobile.
 - Ne pas publier (push, déploiement) sans demande explicite.

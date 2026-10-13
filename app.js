@@ -103,7 +103,7 @@ function renderBrand() {
       <img src="${drive.img(hero.id, 2200)}" alt="BogotaBeats" fetchpriority="high">`;
   }
   const booking = photo('bookingPhoto', 1);
-  if (booking) $('#contactBg').style.backgroundImage = `url("${drive.img(booking.id, 1800)}")`;
+  if (booking) $('#contactBg').innerHTML = `<img src="${drive.img(booking.id, 1800)}" alt="" loading="lazy" referrerpolicy="no-referrer">`;
   const about = photo('aboutPhoto', 2);
   if (about) $('#aboutPhoto').innerHTML = `<img src="${drive.img(about.id, 1000)}" alt="BogotaBeats" loading="lazy">`;
 }
@@ -157,14 +157,106 @@ function renderDates() {
   $('#morePast').hidden = showAllPast || past.length <= PAST_VISIBLE;
 }
 
+// ---------- Carrousel vidéos ----------
+// La carte centrée est "active" ; un clic dessus lance la vidéo, un clic sur une voisine la centre.
+// Quitter une vidéo en cours l'arrête (l'iframe est retirée).
+const carousel = { list: [], index: 0, built: false };
+
 function renderVideos() {
   if (!videos.length) { $('#videos').hidden = true; return; }
+  if (carousel.built) return; // les vidéos ne dépendent pas de la langue
   const featured = byName(videos, site.drive?.featuredVideo);
-  $('#videoFeature').innerHTML = featured
-    ? `<button class="vthumb vthumb--wide" data-drive="${featured.id}" style="background-image:url('${drive.thumb(featured.id, 1600)}')" aria-label="${esc(featured.name)}"><span class="yt__play"></span></button>`
-    : '';
-  $('#videoGrid').innerHTML = videos.filter((v) => v !== featured).map((v) =>
-    `<button class="vthumb reveal" data-drive="${v.id}" style="background-image:url('${drive.thumb(v.id, 600)}')" aria-label="${esc(v.name)}"><span class="yt__play"></span></button>`).join('');
+  carousel.list = featured ? [featured, ...videos.filter((v) => v !== featured)] : videos;
+  $('#vidTrack').innerHTML = carousel.list.map((v, i) => `
+    <div class="vcard" data-i="${i}">
+      <button class="vcard__media" type="button" data-vid="${i}" aria-label="Video ${i + 1}">
+        <img class="vcard__img" src="${drive.thumb(v.id, 900)}" alt="" loading="lazy" draggable="false" referrerpolicy="no-referrer">
+        <span class="yt__play"></span>
+        <span class="vcard__num">${String(i + 1).padStart(2, '0')}</span>
+      </button>
+    </div>`).join('');
+  carousel.built = true;
+  setupCarousel();
+}
+
+function setupCarousel() {
+  const box = $('#videoCarousel');
+  const cards = [...box.querySelectorAll('.vcard')];
+  const total = cards.length;
+
+  const stop = (card) => {
+    const media = card.querySelector('.vcard__media');
+    media.querySelector('iframe')?.remove();
+    card.classList.remove('is-playing');
+  };
+  const setActive = (i) => {
+    if (i === carousel.index && cards[i].classList.contains('is-active')) return;
+    cards.forEach((c, k) => {
+      c.classList.toggle('is-active', k === i);
+      if (k !== i) stop(c);
+    });
+    carousel.index = i;
+    $('#vidCount').innerHTML = `<b>${String(i + 1).padStart(2, '0')}</b> / ${String(total).padStart(2, '0')}`;
+    $('#vidBar').style.width = `${((i + 1) / total) * 100}%`;
+    $('#vidPrev').disabled = i === 0;
+    $('#vidNext').disabled = i === total - 1;
+  };
+  const goTo = (i, smooth = true) => {
+    i = Math.max(0, Math.min(total - 1, i));
+    const c = cards[i];
+    box.scrollTo({ left: c.offsetLeft - (box.clientWidth - c.offsetWidth) / 2, behavior: smooth ? 'smooth' : 'auto' });
+    setActive(i);
+  };
+  // Carte la plus proche du centre pendant le défilement (swipe, trackpad, molette)
+  const nearest = () => {
+    const mid = box.scrollLeft + box.clientWidth / 2;
+    let best = 0, dist = Infinity;
+    cards.forEach((c, k) => { const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < dist) { dist = d; best = k; } });
+    return best;
+  };
+  let raf;
+  box.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => setActive(nearest())); }, { passive: true });
+
+  $('#vidPrev').onclick = () => goTo(carousel.index - 1);
+  $('#vidNext').onclick = () => goTo(carousel.index + 1);
+  box.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(carousel.index - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); goTo(carousel.index + 1); }
+  });
+
+  // Glisser à la souris sur ordinateur (le tactile utilise le défilement natif)
+  let drag = null;
+  box.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    drag = { x: e.clientX, left: box.scrollLeft, moved: false };
+    box.classList.add('is-dragging');
+  });
+  addEventListener('pointermove', (e) => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    if (Math.abs(dx) > 5) drag.moved = true;
+    box.scrollLeft = drag.left - dx;
+  });
+  addEventListener('pointerup', () => {
+    if (!drag) return;
+    box.classList.remove('is-dragging');
+    const moved = drag.moved;
+    drag = null;
+    if (moved) { goTo(nearest()); box.dataset.justDragged = '1'; setTimeout(() => delete box.dataset.justDragged, 50); }
+  });
+
+  box.addEventListener('click', (e) => {
+    const media = e.target.closest('[data-vid]');
+    if (!media || box.dataset.justDragged) return;
+    const i = +media.dataset.vid;
+    if (i !== carousel.index) { goTo(i); return; }
+    if (media.querySelector('iframe')) return;
+    media.insertAdjacentHTML('beforeend', `<iframe src="${drive.preview(carousel.list[i].id)}" allow="autoplay; fullscreen" allowfullscreen title="Video ${i + 1}"></iframe>`);
+    cards[i].classList.add('is-playing');
+  });
+
+  addEventListener('resize', () => goTo(carousel.index, false));
+  requestAnimationFrame(() => goTo(0, false));
 }
 
 function renderStats() {
@@ -175,6 +267,8 @@ function renderStats() {
 
 function renderEpkText() {
   $('#tagline').textContent = tr(site.tagline) || '';
+  if (site.listenUrl) $('#listenBtn').href = site.listenUrl;
+  else $('#listenBtn').removeAttribute('target'); // sans lien : le bouton descend vers les sets
   $('#bio').innerHTML = (tr(site.bio) || []).map((p) => `<p>${esc(p)}</p>`).join('');
   $('#music').textContent = tr(site.music) || '';
   $('#inspirations').textContent = tr(site.inspirations) || '';
@@ -209,7 +303,7 @@ function renderGallery() {
     galleries[`extra${k}`] = imgs;
     return `<h3 class="h2">${esc(f.name)}</h3>
       ${imgs.length ? `<div class="gallery">${galleryHtml(imgs, `extra${k}`)}</div>` : ''}
-      ${vids.length ? `<div class="video-grid" style="margin-bottom:88px">${vids.map((v) => `<button class="vthumb" data-drive="${v.id}" style="background-image:url('${drive.thumb(v.id, 600)}')"><span class="yt__play"></span></button>`).join('')}</div>` : ''}
+      ${vids.length ? `<div class="video-grid" style="margin-bottom:88px">${vids.map((v) => `<button class="vthumb" data-drive="${v.id}"><img class="vcard__img" src="${drive.thumb(v.id, 600)}" alt="" loading="lazy" referrerpolicy="no-referrer"><span class="yt__play"></span></button>`).join('')}</div>` : ''}
       ${docs.length ? `<div class="downloads">${docs.map(dlCard).join('')}</div>` : ''}`;
   }).join('');
 }

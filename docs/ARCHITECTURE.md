@@ -33,6 +33,10 @@ Un petit script inline applique le thème avant l'affichage (anti-flash).
 | Interactions | Délégation de clics : lecture YouTube/Drive à la demande (iframes chargées au clic seulement), lightbox, langue, thème |
 | Observers | Apparitions au scroll, lien actif du menu, compteurs animés des stats |
 
+**Carrousel vidéos** (`renderVideos` / `setupCarousel`) : défilement natif avec scroll-snap (swipe mobile, trackpad), flèches, clavier ←/→, glisser à la souris ; la carte la plus proche du centre devient active, et quitter une vidéo en cours retire son iframe (la lecture s'arrête).
+
+Les images Drive sont toujours des balises `<img referrerpolicy="no-referrer">` (jamais des `background-image` CSS, qui envoient un referrer et sont refusées par Google).
+
 Les vidéos ne chargent leur lecteur qu'au clic (miniature avant) : la page reste légère malgré
 14 vidéos Drive et 4 sets YouTube.
 

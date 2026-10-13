@@ -93,7 +93,7 @@ Tout passe par le **Drive**, puis `npm run sync` :
 | Action | Où |
 |---|---|
 | Ajouter des photos presse | Dossier **Photos** — elles apparaissent dans la galerie (ordre alphabétique) |
-| Ajouter une vidéo | Dossier **Videos** |
+| Ajouter une vidéo | Dossier **Videos** — elle s'ajoute au carrousel (la `featuredVideo` passe en premier) |
 | Nouveau logo | Dossier **Logos** (un nom contenant `white`/`blanc` = version pour fond sombre) |
 | Mettre à jour le press kit / la fiche technique | Remplacer le fichier à la racine du Drive |
 | Nouvelle rubrique (ex. **Flyers**, **Mixes**) | Créer un sous-dossier : il devient une section de l'EPK |
@@ -133,7 +133,8 @@ Si un fichier est renommé ou supprimé, le site prend une autre photo automatiq
 
 | Clé | Contenu |
 |---|---|
-| `tagline` | Sous-titre sous le logo |
+| `tagline` | Sous-titre sous le logo (les styles) |
+| `listenUrl` | Lien du bouton « Listen to a set » de l'accueil (SoundCloud) — si vide, le bouton descend vers les sets |
 | `bio` | Biographie (une entrée = un paragraphe) |
 | `music` | Paragraphe « The sound » |
 | `inspirations`, `influences` | Texte + liste d'artistes |
