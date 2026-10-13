@@ -24,7 +24,6 @@
     "epk.photos": "Press photos",
     "epk.photosHint": "Click to enlarge · free HD download for promo use (photo credit appreciated).",
     "epk.downloads": "Downloads",
-    "epk.logos": "Logos",
     "epk.setup": "Tech / Rider",
     "epk.dlHd": "Download HD",
     "dl.presskit": "Press kit",
@@ -60,7 +59,9 @@
     "dates.event": "Event page",
     "dates.ics": "Add to calendar",
     "dates.map": "Directions",
-    "type.openair": "Open air"
+    "type.openair": "Open air",
+    "dl.logos": "Logos",
+    "dl.logosName": "BogotaBeats logos — {n} PNG files (white, colour…)"
   },
   "fr": {
     "nav.home": "Accueil",
@@ -87,7 +88,6 @@
     "epk.photos": "Photos presse",
     "epk.photosHint": "Clique pour agrandir · téléchargement HD libre pour la promo (crédit photo apprécié).",
     "epk.downloads": "Téléchargements",
-    "epk.logos": "Logos",
     "epk.setup": "Tech / Rider",
     "epk.dlHd": "Télécharger HD",
     "dl.presskit": "Press kit",
@@ -123,7 +123,9 @@
     "dates.event": "Voir l'événement",
     "dates.ics": "Ajouter au calendrier",
     "dates.map": "Itinéraire",
-    "type.openair": "Plein air"
+    "type.openair": "Plein air",
+    "dl.logos": "Logos",
+    "dl.logosName": "Logos BogotaBeats — {n} fichiers PNG (blanc, couleur…)"
   },
   "es": {
     "nav.home": "Inicio",
@@ -150,7 +152,6 @@
     "epk.photos": "Fotos de prensa",
     "epk.photosHint": "Haz clic para ampliar · descarga HD libre para promoción (se agradece el crédito).",
     "epk.downloads": "Descargas",
-    "epk.logos": "Logos",
     "epk.setup": "Técnica / Rider",
     "epk.dlHd": "Descargar HD",
     "dl.presskit": "Press kit",
@@ -186,6 +187,8 @@
     "dates.event": "Ver el evento",
     "dates.ics": "Añadir al calendario",
     "dates.map": "Cómo llegar",
-    "type.openair": "Al aire libre"
+    "type.openair": "Al aire libre",
+    "dl.logos": "Logos",
+    "dl.logosName": "Logos BogotaBeats — {n} archivos PNG (blanco, color…)"
   }
 }

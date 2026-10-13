@@ -34,7 +34,7 @@ Le rôle d'un sous-dossier est déduit de son **nom** (insensible aux majuscules
 |---|---|
 | `flyer`, `affiche`, `poster` | **Flyers** des soirées, associés aux dates par le début du nom (`2026-10-16 - …`) — voir MISE-A-JOUR.md |
 | `photo`, `pic`, `image`, `press` | Galerie **Press photos** + photos d'accueil/bio/contact |
-| `logo` | Logos du site (nav, héros) + section **Logos** téléchargeables |
+| `logo` | Logos du site (nav, héros) + carte **Logos** dans les Téléchargements (ouvre le dossier Drive) |
 | `video`, `clip`, `teaser`, `aftermovie` | Section **Videos** |
 | *n'importe quoi d'autre* (ex. `Mixes`, `Presse`, `Backstage`) | **Nouvelle section** dans l'EPK, titrée avec le nom du dossier (images en galerie, vidéos, documents en cartes de téléchargement) |
 

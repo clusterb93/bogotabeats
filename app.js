@@ -500,13 +500,17 @@ function renderGallery() {
 function renderDownloads() {
   const files = visible(tree.files).filter((f) => !['image', 'video', 'sheet'].includes(f.kind));
   files.sort((a, b) => /press/i.test(b.name) - /press/i.test(a.name));
-  $('#downloads').innerHTML = files.map(dlCard).join('');
-  $('#logos').innerHTML = logos.map((l) => {
-    const onDark = /white|blanc/.test(norm(l.name));
-    return `<a class="logo-card" href="${drive.download(l.id)}" target="_blank" rel="noopener">
-      <div class="logo-card__img ${onDark ? '' : 'logo-card__img--light'}"><img src="${drive.img(l.id, 500)}" alt="${esc(l.name)}" loading="lazy"></div>
-      <span>${esc(l.name)} ↓</span></a>`;
-  }).join('');
+  // Les logos tiennent en une seule carte : elle ouvre le dossier Drive (fichiers à l'unité ou tout en .zip)
+  const logoFolder = folders.logos[0];
+  const preview = logos.find((f) => /white|blanc/.test(norm(f.name))) || logos[0];
+  const logoCard = logoFolder && logos.length
+    ? `<a class="dl dl--logos reveal" href="https://drive.google.com/drive/folders/${logoFolder.id}" target="_blank" rel="noopener">
+        <span class="dl__kind">${t('dl.logos')}</span>
+        ${preview ? `<img class="dl__logo" src="${drive.img(preview.id, 400)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ''}
+        <span class="dl__name">${t('dl.logosName').replace('{n}', logos.length)}</span>
+        <span class="dl__cta">${t('dl.open')} ↗</span></a>`
+    : '';
+  $('#downloads').innerHTML = files.map(dlCard).join('') + logoCard;
 }
 
 function renderContact() {

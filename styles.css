@@ -461,14 +461,10 @@ body::after {
 .dl__cta { margin-top: auto; font: 800 .72rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .dl--main { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 .dl--main .dl__kind, .dl--main .dl__cta { color: var(--on-accent); }
+/* Carte Logos : aperçu du logo blanc sur fond sombre */
+.dl__logo { height: 54px; width: auto; max-width: 100%; object-fit: contain; object-position: left; padding: 10px 12px; background: #111; box-sizing: content-box; align-self: flex-start; }
+[data-theme="light"] .dl__logo { border-radius: 8px; }
 
-.logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-bottom: 88px; }
-.logo-card { display: flex; flex-direction: column; border: 1px solid var(--line); color: var(--text); background: var(--card); }
-.logo-card:hover { border-color: var(--accent); text-decoration: none; }
-.logo-card__img { aspect-ratio: 4/3; display: grid; place-items: center; padding: 24px; background: #111; }
-.logo-card__img--light { background: #f4ecdf; }
-.logo-card__img img { max-height: 100%; object-fit: contain; }
-.logo-card span { padding: 12px 14px; font-size: .82rem; color: var(--muted); }
 
 .setup { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; max-width: 75ch; }
 .setup li { padding-left: 28px; position: relative; }
