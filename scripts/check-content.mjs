@@ -15,6 +15,7 @@ const site = await json('site.json');
 const sets = await json('sets.json');
 const dates = await json('dates.json');
 const drive = await json('drive.json');
+const mixes = await json('mixes.json');
 
 const TYPES = ['club', 'festival', 'radio', 'private', 'live'];
 if (Array.isArray(dates)) {
@@ -36,6 +37,13 @@ if (Array.isArray(sets)) {
     if (!s.title) warnings.push(`sets.json #${i + 1} : pas de titre`);
   });
   console.log(`• ${sets.length} sets YouTube`);
+}
+
+if (Array.isArray(mixes)) {
+  mixes.forEach((m, i) => {
+    if (!/^https:\/\/(on\.)?soundcloud\.com\/[^/]+\/[^/?#]+/.test(m.url || '')) errors.push(`mixes.json #${i + 1} : lien SoundCloud non reconnu "${m.url}" (attendu : https://soundcloud.com/compte/morceau)`);
+  });
+  console.log(`• ${mixes.length} mixes SoundCloud`);
 }
 
 if (site && drive) {

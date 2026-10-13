@@ -32,8 +32,8 @@ const params = new URLSearchParams(location.search);
 
 // ---------- Chargement ----------
 const load = (f, fallback) => fetch(`content/${f}`, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : fallback)).catch(() => fallback);
-const [site, ui, sets, dates, tree] = await Promise.all([
-  load('site.json', {}), load('ui.json', {}), load('sets.json', []), load('dates.json', []), load('drive.json', { files: [], folders: [] }),
+const [site, ui, sets, dates, tree, mixes] = await Promise.all([
+  load('site.json', {}), load('ui.json', {}), load('sets.json', []), load('dates.json', []), load('drive.json', { files: [], folders: [] }), load('mixes.json', []),
 ]);
 
 const LANGS = site.languages || Object.keys(ui);
@@ -272,6 +272,111 @@ function setupCarousel() {
   requestAnimationFrame(() => goTo(0, false));
 }
 
+// ---------- Mixes SoundCloud : platine vinyle + tracklist ----------
+// Titres et pochettes viennent de l'oEmbed SoundCloud (content/mixes.json ne contient que les liens).
+// Le lecteur est piloté par l'API Widget officielle : le vinyle tourne seulement pendant la lecture.
+const mix = { list: [], index: 0, iframe: null, widget: null, built: false };
+const cleanTitle = (s = '') => s.replace(/ by BogotaBeats$/i, '').replace(/^BogotaBeats\s*[-–]\s*/i, '').replace(/\s*[-–]\s*BogotaBeats$/i, '').trim();
+const scArt = (url, size) => (url ? url.replace(/-t\d+x\d+\./, `-${size}.`) : '');
+const scOptions = () => ({
+  color: getComputedStyle(root).getPropertyValue('--accent').trim().replace('#', ''),
+  hide_related: true, show_comments: false, show_user: false, show_reposts: false, show_teaser: false, visual: false,
+});
+const loadScApi = () => (window.SC?.Widget ? Promise.resolve() : new Promise((res, rej) => {
+  const s = document.createElement('script');
+  s.src = 'https://w.soundcloud.com/player/api.js';
+  s.onload = res; s.onerror = rej;
+  document.head.append(s);
+}));
+
+async function renderMixes() {
+  if (mix.built) return;
+  mix.built = true;
+  if (!mixes.length) { $('#mixes').hidden = true; $('a[href="#mixes"]').hidden = true; return; }
+  $('#allMixes').href = site.listenUrl || 'https://soundcloud.com';
+  const metas = await Promise.all(mixes.map((m) =>
+    fetch(`https://soundcloud.com/oembed?format=json&url=${encodeURIComponent(m.url)}`).then((r) => (r.ok ? r.json() : null)).catch(() => null)));
+  mix.list = mixes.map((m, i) => ({
+    ...m,
+    title: m.title || cleanTitle(metas[i]?.title) || m.url.split('/').pop(),
+    art: m.artwork || metas[i]?.thumbnail_url || '',
+  }));
+  $('#tracklist').innerHTML = mix.list.map((m, i) => `
+    <li><button type="button" class="track" data-mix="${i}">
+      <span class="track__num">${String(i + 1).padStart(2, '0')}</span>
+      ${m.art ? `<img class="track__art" src="${scArt(m.art, 't200x200')}" alt="" loading="lazy" referrerpolicy="no-referrer">` : '<span class="track__art"></span>'}
+      <span class="track__txt"><span class="track__title">${esc(tr(m.title))}</span>${m.where ? `<span class="track__where">${esc(tr(m.where))}</span>` : ''}</span>
+      <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span class="track__play" aria-hidden="true"></span>
+    </button></li>`).join('');
+  selectMix(0, false);
+  // Le lecteur SoundCloud n'est chargé qu'à l'approche de la section (page plus légère)
+  new IntersectionObserver((entries, obs) => {
+    if (entries.some((e) => e.isIntersecting)) { obs.disconnect(); ensurePlayer(false); }
+  }, { rootMargin: '400px' }).observe($('#mixes'));
+}
+
+function selectMix(i, autoplay) {
+  mix.index = i;
+  const m = mix.list[i];
+  document.querySelectorAll('.track').forEach((b, k) => b.classList.toggle('is-current', k === i));
+  $('#vinylLabel').innerHTML = m.art ? `<img src="${scArt(m.art, 't500x500')}" alt="" referrerpolicy="no-referrer">` : '';
+  $('#deckTitle').textContent = tr(m.title);
+  $('#deckWhere').textContent = m.where ? tr(m.where) : '';
+  if (mix.widget) mix.widget.load(m.url, { ...scOptions(), auto_play: autoplay });
+  else if (autoplay) ensurePlayer(true);
+}
+
+async function ensurePlayer(autoplay) {
+  if (mix.iframe) return;
+  const m = mix.list[mix.index];
+  const qs = new URLSearchParams({ url: m.url, auto_play: autoplay, ...scOptions() });
+  mix.iframe = document.createElement('iframe');
+  Object.assign(mix.iframe, { title: 'SoundCloud', allow: 'autoplay; encrypted-media', referrerPolicy: 'strict-origin-when-cross-origin', src: `https://w.soundcloud.com/player/?${qs}` });
+  $('#deckWidget').append(mix.iframe);
+  try {
+    await loadScApi();
+    mix.widget = window.SC.Widget(mix.iframe);
+    const E = window.SC.Widget.Events;
+    const playing = (on) => $('#deck').classList.toggle('is-playing', on);
+    mix.widget.bind(E.PLAY, () => playing(true));
+    mix.widget.bind(E.PAUSE, () => playing(false));
+    mix.widget.bind(E.FINISH, () => { playing(false); if (mix.index < mix.list.length - 1) selectMix(mix.index + 1, true); });
+  } catch { /* l'API ne charge pas : le lecteur reste utilisable, sans animation du vinyle */ }
+}
+
+$('#tracklist').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-mix]');
+  if (!b) return;
+  const i = +b.dataset.mix;
+  if (i === mix.index && mix.widget) mix.widget.toggle();
+  else selectMix(i, true);
+});
+$('#vinyl').addEventListener('click', () => (mix.widget ? mix.widget.toggle() : ensurePlayer(true)));
+
+// ---------- Galeries en carrousel sur mobile ----------
+// Sur téléphone, .gallery devient un rail horizontal (CSS) : on suit la photo centrée pour le compteur.
+function setupRails() {
+  document.querySelectorAll('.gallery').forEach((rail) => {
+    const count = rail.nextElementSibling?.classList.contains('rail-count') ? rail.nextElementSibling : null;
+    if (!count || !rail.children.length) return;
+    const update = () => {
+      const items = [...rail.children];
+      const mid = rail.scrollLeft + rail.clientWidth / 2;
+      let best = 0, dist = Infinity;
+      items.forEach((it, k) => { const d = Math.abs(it.offsetLeft + it.offsetWidth / 2 - mid); if (d < dist) { dist = d; best = k; } });
+      items.forEach((it, k) => it.classList.toggle('is-active', k === best));
+      count.innerHTML = `<b>${String(best + 1).padStart(2, '0')}</b> / ${String(items.length).padStart(2, '0')} <span>· ${esc(t('gallery.swipe'))} →</span>`;
+    };
+    if (!rail.dataset.rail) {
+      rail.dataset.rail = '1';
+      let raf;
+      rail.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); }, { passive: true });
+    }
+    update();
+  });
+}
+
 function renderStats() {
   $('#stats').innerHTML = (site.stats || []).map((s) =>
     `<div class="stat reveal"><div class="stat__value" data-count="${s.value}" data-suffix="${esc(s.suffix || '')}">${s.value}${esc(s.suffix || '')}</div><div class="stat__label">${esc(tr(s.label))}</div></div>`).join('');
@@ -307,6 +412,7 @@ function dlCard(f) {
 
 function renderGallery() {
   $('#gallery').innerHTML = galleryHtml(photos, 'photos');
+  requestAnimationFrame(setupRails);
   // Tout autre sous-dossier du Drive (ex : "Flyers", "Mixes") obtient automatiquement sa propre section
   $('#extraFolders').innerHTML = folders.extra.map((f, k) => {
     const files = visible(allFiles(f));
@@ -315,7 +421,7 @@ function renderGallery() {
     const docs = files.filter((x) => !['image', 'video', 'sheet'].includes(x.kind));
     galleries[`extra${k}`] = imgs;
     return `<h3 class="h2">${esc(f.name)}</h3>
-      ${imgs.length ? `<div class="gallery">${galleryHtml(imgs, `extra${k}`)}</div>` : ''}
+      ${imgs.length ? `<div class="gallery">${galleryHtml(imgs, `extra${k}`)}</div><div class="rail-count"></div>` : ''}
       ${vids.length ? `<div class="video-grid" style="margin-bottom:88px">${vids.map((v) => `<button class="vthumb" data-drive="${v.id}"><img class="vcard__img" src="${drive.thumb(v.id, 600)}" alt="" loading="lazy" referrerpolicy="no-referrer"><span class="yt__play"></span></button>`).join('')}</div>` : ''}
       ${docs.length ? `<div class="downloads">${docs.map(dlCard).join('')}</div>` : ''}`;
   }).join('');
@@ -347,6 +453,7 @@ function renderAll() {
   renderChrome();
   renderBrand();
   renderEpkText();
+  renderMixes();
   renderSets();
   renderDates();
   renderVideos();

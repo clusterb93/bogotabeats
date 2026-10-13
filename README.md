@@ -29,7 +29,8 @@ npm run dev      # lance le site sur http://localhost:8080
 | Je veux…                                   | Je fais…                                                                 |
 |--------------------------------------------|--------------------------------------------------------------------------|
 | Ajouter une **date** (à venir ou passée)    | Une ligne dans `content/dates.json` **ou** dans la Google Sheet « Dates » du Drive |
-| Ajouter un **set YouTube**                  | Coller le lien dans `content/sets.json` (ou la Google Sheet « Sets »)     |
+| Ajouter un **set YouTube** (Live sessions)  | Coller le lien dans `content/sets.json` (ou la Google Sheet « Sets »)     |
+| Changer les **mixes SoundCloud** (Mixes)    | Coller les liens dans `content/mixes.json`                               |
 | Ajouter / retirer des **photos presse**     | Les déposer / supprimer dans le dossier **Photos** du Drive              |
 | Changer la **photo d'accueil**              | `drive.hero` dans `content/site.json` (une photo par thème)              |
 | Mettre à jour le **press kit / rider**      | Remplacer le fichier dans le Drive (même dossier racine)                 |
@@ -62,7 +63,8 @@ bogotabeats/
 ├── content/                ← TOUT LE CONTENU ÉDITABLE EST ICI
 │   ├── site.json           Profil : bio, stats, genres, contact, réseaux, choix des photos
 │   ├── dates.json          Dates (passées et à venir)
-│   ├── sets.json           Sets YouTube
+│   ├── sets.json           Live sessions YouTube
+│   ├── mixes.json          Mixes SoundCloud (platine vinyle)
 │   ├── ui.json             Textes de l'interface en en / fr / es
 │   └── drive.json          GÉNÉRÉ par `npm run sync` — ne pas modifier à la main
 ├── scripts/

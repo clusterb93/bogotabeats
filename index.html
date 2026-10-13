@@ -81,7 +81,8 @@
   <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   <nav class="nav__links" id="navLinks">
     <a href="#home" data-i18n="nav.home">Home</a>
-    <a href="#sets" data-i18n="nav.sets">Sets</a>
+    <a href="#mixes" data-i18n="nav.mixes">Mixes</a>
+    <a href="#sets" data-i18n="nav.sets">Sessions</a>
     <a href="#dates" data-i18n="nav.dates">Tour</a>
     <a href="#videos" data-i18n="nav.videos">Videos</a>
     <a href="#epk" data-i18n="nav.epk">EPK</a>
@@ -116,10 +117,35 @@
   </section>
 
   <!-- SETS -->
-  <section class="section" id="sets">
+  <!-- MIXES (SoundCloud) : platine + tracklist -->
+  <section class="section mixes" id="mixes">
     <div class="leaf leaf--tr" aria-hidden="true"><svg class="leaf__a" viewBox="0 0 200 230"><use href="#monstera"/></svg><svg class="leaf__b" viewBox="0 0 200 230"><use href="#monstera"/></svg></div>
     <div class="wrap">
-      <h2 class="h2" data-i18n="sets.title">Latest sets</h2>
+      <h2 class="h2" data-i18n="mixes.title">Mixes</h2>
+      <p class="section__sub" data-i18n="mixes.sub"></p>
+      <div class="deck" id="deck">
+        <div class="deck__player">
+          <div class="turntable">
+            <div class="vinyl" id="vinyl"><div class="vinyl__label" id="vinylLabel"></div></div>
+            <div class="tonearm" aria-hidden="true"></div>
+          </div>
+          <div class="deck__now">
+            <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <div><p class="deck__title" id="deckTitle"></p><p class="deck__where" id="deckWhere"></p></div>
+          </div>
+          <div class="deck__widget" id="deckWidget"></div>
+        </div>
+        <ol class="tracklist" id="tracklist"></ol>
+      </div>
+      <a class="btn btn--ghost btn--sm mixes__all" id="allMixes" target="_blank" rel="noopener" data-i18n="mixes.more"></a>
+    </div>
+  </section>
+
+  <!-- LIVE SESSIONS (YouTube) -->
+  <section class="section section--alt" id="sets">
+    <div class="wrap">
+      <h2 class="h2" data-i18n="sets.title">Live sessions</h2>
+      <p class="section__sub" data-i18n="sets.sub"></p>
       <div class="sets" id="setsGrid"></div>
     </div>
   </section>
@@ -184,6 +210,7 @@
       <h3 class="h2" data-i18n="epk.photos">Press photos</h3>
       <p class="hint" data-i18n="epk.photosHint"></p>
       <div class="gallery" id="gallery"></div>
+      <div class="rail-count"></div>
 
       <div id="extraFolders"></div>
 

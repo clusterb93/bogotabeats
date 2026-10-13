@@ -86,6 +86,22 @@ Ajouter un bloc `{ … }` dans la liste (l'ordre n'a pas d'importance, le site t
 
 ---
 
+## 2 bis. Les mixes SoundCloud 🎛️
+
+`content/mixes.json` — tes mixes mis en avant (la platine vinyle de la section **Mixes**), dans l'ordre d'affichage :
+
+```json
+[
+  { "url": "https://soundcloud.com/bogotabeats/macadam_gison3", "where": "Macadam · Nantes · 28.02.26" }
+]
+```
+
+- Coller le lien de la page du morceau SoundCloud ; **titre et pochette sont récupérés automatiquement**.
+- `where` (facultatif) : lieu / date affichés sous le titre.
+- `title` (facultatif) : remplace le titre SoundCloud (`"title": { "en": "…", "fr": "…" }` possible).
+- Conseil : garder les mêmes que tes **titres épinglés** SoundCloud (5 max, c'est le plus lisible).
+- Le bouton « All mixes on SoundCloud » pointe vers `site.json → listenUrl`.
+
 ## 3. Photos, vidéos, logos, documents 🖼️
 
 Tout passe par le **Drive**, puis `npm run sync` :
