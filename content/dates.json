@@ -1,0 +1,66 @@
+[
+  {
+    "date": "2026-02-28",
+    "event": "Gison #3",
+    "venue": "Macadam",
+    "city": "Nantes, FR",
+    "type": "club",
+    "link": ""
+  },
+  {
+    "date": "2026-02-20",
+    "event": "Résidence SantaMuerte ",
+    "venue": "Ohm Town",
+    "city": "Nantes, FR",
+    "type": "club",
+    "link": ""
+  },
+  {
+    "date": "2025-11-17",
+    "event": "LW2 invite BogotaBeats",
+    "venue": "Piñata Radio",
+    "city": "Montpellier, FR",
+    "type": "radio",
+    "link": "https://www.youtube.com/watch?v=124JzERpx3o"
+  },
+  {
+    "date": "2025-09-20",
+    "event": "Club Magina — Fusion #1 (b2b Noukiflex)",
+    "venue": "Grabuge",
+    "city": "Rennes",
+    "type": "club",
+    "link": ""
+  },
+  {
+    "date": "2025-06-28",
+    "event": "SantaMuerte ft. Luma",
+    "venue": "Ohm Town",
+    "city": "Nantes",
+    "type": "club",
+    "link": ""
+  },
+  {
+    "date": "2025-06-27",
+    "event": "Perreo Con-Sentido",
+    "venue": "Bar Désordre",
+    "city": "",
+    "type": "club",
+    "link": ""
+  },
+  {
+    "date": "2025-04-19",
+    "event": "Waack Me Up",
+    "venue": "Café des Champs Libres",
+    "city": "Rennes",
+    "type": "club",
+    "link": ""
+  },
+  {
+    "date": "2025-03-14",
+    "event": "Perreo Con-Sentido",
+    "venue": "Bar Désordre",
+    "city": "",
+    "type": "club",
+    "link": ""
+  }
+]

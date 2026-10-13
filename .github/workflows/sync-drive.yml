@@ -1,0 +1,49 @@
+# Synchronise le Drive tous les jours (et à la demande), puis publie le site sur GitHub Pages.
+name: Sync Drive & deploy
+
+on:
+  schedule:
+    - cron: '0 6 * * *'        # tous les jours à 6h UTC
+  workflow_dispatch:            # bouton "Run workflow" dans l'onglet Actions
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  sync-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Synchroniser le Drive
+        run: node scripts/sync-drive.mjs
+      - name: Vérifier le contenu
+        run: node scripts/check-content.mjs
+      - name: Enregistrer les changements du Drive
+        run: |
+          if [ -n "$(git status --porcelain content)" ]; then
+            git config user.name "bogotabeats-bot"
+            git config user.email "bot@users.noreply.github.com"
+            git add content
+            git commit -m "sync: contenu du Drive"
+            git push
+          fi
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deploy
+        uses: actions/deploy-pages@v4

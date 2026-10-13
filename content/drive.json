@@ -1,0 +1,220 @@
+{
+  "syncedAt": "2026-10-13T09:39:04.550Z",
+  "id": "1i7wBmtRWy71WacUW7GR61aymIdeZMwTe",
+  "name": "PackPresse",
+  "files": [
+    {
+      "id": "1clXFasYPzH4d55skJD0bd9M6hjsckzPu",
+      "name": "BogotaBeats - PressKit 2026.pdf",
+      "kind": "pdf"
+    },
+    {
+      "id": "1R4GUc54_802_VmTci4_ExaMW5W2ZExSkUY9W10w0kkQ",
+      "name": "Fiche Technique - BogotaBeats (FR)",
+      "kind": "doc"
+    },
+    {
+      "id": "1ChejtIKf3gVZURIFjRi9sdlBMlItTJbE6zcCIDgNLT8",
+      "name": "Technical Sheet - BogotaBeats (EN)",
+      "kind": "doc"
+    }
+  ],
+  "folders": [
+    {
+      "id": "1lf-T-xkzlg652ypOTjB5Mchmso8mrPEV",
+      "name": "Logos",
+      "files": [
+        {
+          "id": "1IOcTL8ZHFFkate4UNTUo00cjkQemHZ5m",
+          "name": "BogotaBeats_logo_white.png",
+          "kind": "image"
+        },
+        {
+          "id": "1Bc1BUIX8T7BkPSXet3y_-ufYFmG_TFOl",
+          "name": "BogotaBeats_logo.png",
+          "kind": "image"
+        },
+        {
+          "id": "1KnwvIyDTo-GW9vy81TADThr4HQza5yLA",
+          "name": "BogotaBeats-photo-logo-right.png",
+          "kind": "image"
+        }
+      ],
+      "folders": []
+    },
+    {
+      "id": "1psQEiyvefx-dgglSud34ByoyCxR3epNp",
+      "name": "Photos",
+      "files": [
+        {
+          "id": "1dmTXicC-fY93wVYB-xYnLlEFyYwtPeeA",
+          "name": "0EE2CF14-249C-4DEC-B524-F55946D623D1.jpg",
+          "kind": "image"
+        },
+        {
+          "id": "1-YsyGwYgWFbd22iu5Wvw4Xh6PW8a3AHK",
+          "name": "17CD404A-377F-4FBD-B43F-960A7ACAC5DB_1_105_c.jpeg",
+          "kind": "image"
+        },
+        {
+          "id": "1yD4-q4Fz45QOSSukSLeWLhEoEiGHyrcp",
+          "name": "70DF2AE6-BC04-48FF-82F1-AEF57AF026F1_1_201_a.heic",
+          "kind": "image"
+        },
+        {
+          "id": "1w9xDQOtIAgUGCU5x8Eb-pZ9HKx1Gu36B",
+          "name": "72091FF6-1F05-4ED8-9B45-29DE628E5AE1_1_105_c.jpeg",
+          "kind": "image"
+        },
+        {
+          "id": "1YJS8Orf0nHCVatazJ2Kz0hGxJU7mSxvq",
+          "name": "A0983E90-DB09-43C0-A61E-198853FB1945.jpg",
+          "kind": "image"
+        },
+        {
+          "id": "1SOE-VtemfjYPzvS-Qy7cZIYx41lnfeHe",
+          "name": "B485BB4D-8299-494E-9D51-F1A25BBDF754_1_201_a.jpeg",
+          "kind": "image"
+        },
+        {
+          "id": "1GV52UJxBFAWnuFMmNvCURS04V_By5gcR",
+          "name": "BogotaBeats_mixing.jpg",
+          "kind": "image"
+        },
+        {
+          "id": "1y1rxLHN2cHsi5x1Xg4Uu7910Er0mRqIA",
+          "name": "CFranci-Bogotabeats-1-HD.jpg",
+          "kind": "image"
+        },
+        {
+          "id": "1UVmBRl2gOyvnAFMs2zLPKAl5zSJi0APJ",
+          "name": "CFranci-Bogotabeats-Foule-1-HD.jpg",
+          "kind": "image"
+        },
+        {
+          "id": "1gsuV87hl7nrCGJzffkfUlRO13rgRFJ-G",
+          "name": "Copie de PressPic_BogotaBeats_byAnatoleDOVGANYUK-15.jpg",
+          "kind": "image"
+        },
+        {
+          "id": "1h4WFsrOdftiuyyFFO5acFUwmk_Le-cLt",
+          "name": "Copie de PressPic_BogotaBeats_byAnatoleDOVGANYUK-17.jpg",
+          "kind": "image"
+        },
+        {
+          "id": "1uDP_gaba_kD9VoEiogpDn0Fi9-RbavxF",
+          "name": "Copie de PressPic_BogotaBeats_byAnatoleDOVGANYUK-18.jpg",
+          "kind": "image"
+        },
+        {
+          "id": "180C1sRv_pvw9T7331mUFfq3FBcglBJ4d",
+          "name": "Copie de PressPic_BogotaBeats_byAnatoleDOVGANYUK-32.jpg",
+          "kind": "image"
+        },
+        {
+          "id": "18_GwvT23Ue9M0w9CcAhxs0dxn-ej7CXR",
+          "name": "DSC00791.jpg",
+          "kind": "image"
+        },
+        {
+          "id": "1Yn15aRdrcnhO2Bn518u8Lq8_gZlwmLv8",
+          "name": "DSC01144.jpg",
+          "kind": "image"
+        },
+        {
+          "id": "1zIp2Ri2_dh6Y5OK_b_8jugWOYyPNhVej",
+          "name": "DSC03390.jpeg",
+          "kind": "image"
+        },
+        {
+          "id": "124A2mQuzAFFKoCBxEO3WTGljQ3wV0Iye",
+          "name": "DSC03392.jpeg",
+          "kind": "image"
+        },
+        {
+          "id": "1Euoq9fiKt5Ru4yECcJNA24QI_2bTcrc5",
+          "name": "DSC03415.jpeg",
+          "kind": "image"
+        }
+      ],
+      "folders": []
+    },
+    {
+      "id": "1NPXf5HDm6mTR43QTq08hRGzQ1Hy8bhEm",
+      "name": "Videos",
+      "files": [
+        {
+          "id": "1FwhivN1xRYhSCNzINxWZPTpxU6kyMgzY",
+          "name": "6860ca3d-9b6a-4265-b915-646041e1672b.mp4",
+          "kind": "video"
+        },
+        {
+          "id": "1G3oHETWhUcKHEZ_BnSui6k8t1cn2wGKb",
+          "name": "672792b5-b9e1-4d8a-92d4-3cabf4c761cc.mp4",
+          "kind": "video"
+        },
+        {
+          "id": "1UdZG50QZ8mp_U55nFO7_LxCLg-EOErQd",
+          "name": "1000018179.mp4",
+          "kind": "video"
+        },
+        {
+          "id": "1arU30UBllL0VeqSJJVlwuLS2zJdQgQA6",
+          "name": "BOGOTABEATS_PROMO.mp4",
+          "kind": "video"
+        },
+        {
+          "id": "10WpbWOWGTzn0wdHmUan_AF0Jn4QZcV2M",
+          "name": "BogotaPinata1.mp4",
+          "kind": "video"
+        },
+        {
+          "id": "1xy9SPzyvU4PlYLd1K5_DDhNMekogEKC6",
+          "name": "BogotaPinata9.mp4",
+          "kind": "video"
+        },
+        {
+          "id": "1VL7EdP1vdkNvhbxdHtyJgPGpdu6QgFgz",
+          "name": "BogotaPinata10.mp4",
+          "kind": "video"
+        },
+        {
+          "id": "1_-9SbvcAxiWNdOzWw0zn9N7FAbQLih7W",
+          "name": "BogotaPinata15.mp4",
+          "kind": "video"
+        },
+        {
+          "id": "1giA_0f5U1Je-qggiuBFFX8sfaL_jhgMZ",
+          "name": "CMR7.mp4",
+          "kind": "video"
+        },
+        {
+          "id": "1nG6lLNE4eRBhmZUrV1cYN1o0l_JTJGIg",
+          "name": "CMR12.mp4",
+          "kind": "video"
+        },
+        {
+          "id": "1JJTa0vRggc_iM6VhQMM0LvK9mm2WkOrp",
+          "name": "HomeSession_c.mp4",
+          "kind": "video"
+        },
+        {
+          "id": "1zZxkkZHlWcYVSSnL_tmOuYg5SAyvsfn6",
+          "name": "IMG_4121.MOV",
+          "kind": "video"
+        },
+        {
+          "id": "1i7_iUKQjQLEtmOR4skbq8gzowWPJ2F5k",
+          "name": "IMG_4270.MOV",
+          "kind": "video"
+        },
+        {
+          "id": "1Ql4TlDfxRfkQ3xNQt4IpGbGzpMQ9Ud7P",
+          "name": "IMG_4365.MOV",
+          "kind": "video"
+        }
+      ],
+      "folders": []
+    }
+  ]
+}

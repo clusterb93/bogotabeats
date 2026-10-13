@@ -1,0 +1,95 @@
+{
+  "artist": "BogotaBeats",
+  "defaultLang": "en",
+  "languages": ["en", "fr", "es"],
+  "defaultTheme": "dark",
+
+  "tagline": {
+    "en": "Tribal House · Latin Club · Latin Tech · Neo Perreo",
+    "fr": "Tribal House · Latin Club · Latin Tech · Neo Perreo",
+    "es": "Tribal House · Latin Club · Latin Tech · Neo Perreo"
+  },
+
+  "drive": {
+    "label": "PackPresse",
+    "folderId": "1i7wBmtRWy71WacUW7GR61aymIdeZMwTe",
+    "hero": {
+      "dark": "DSC01144.jpg",
+      "light": "Copie de PressPic_BogotaBeats_byAnatoleDOVGANYUK-17.jpg"
+    },
+    "aboutPhoto": {
+      "dark": "CFranci-Bogotabeats-1-HD.jpg",
+      "light": "70DF2AE6-BC04-48FF-82F1-AEF57AF026F1_1_201_a.heic"
+    },
+    "bookingPhoto": {
+      "dark": "CFranci-Bogotabeats-Foule-1-HD.jpg",
+      "light": "Copie de PressPic_BogotaBeats_byAnatoleDOVGANYUK-32.jpg"
+    },
+    "logo": {
+      "dark": "BogotaBeats_logo_white.png",
+      "light": "BogotaBeats_logo.png"
+    },
+    "featuredVideo": "BOGOTABEATS_PROMO.mp4",
+    "hiddenFiles": []
+  },
+
+  "contact": {
+    "email": "bogotabeats.dj@gmail.com",
+    "phone": "+33 7 60 25 95 50",
+    "phoneIntl": "+33760259550"
+  },
+
+  "socials": [
+    { "name": "Instagram", "url": "https://www.instagram.com/bogotabeats/" },
+    { "name": "SoundCloud", "url": "https://soundcloud.com/bogotabeats" },
+    { "name": "Facebook", "url": "https://www.facebook.com/bogotabeats" },
+    { "name": "YouTube", "url": "https://www.youtube.com/@BogotaBeats" }
+  ],
+
+  "genres": ["Tribal House", "Latin Club", "Latin Tech", "Reggaeton / Neo Perreo", "Afro House", "Guaracha", "Baile Funk", "Cumbia", "VogueBeats"],
+
+  "stats": [
+    { "value": 100, "suffix": "+", "label": { "en": "gigs", "fr": "gigs", "es": "fechas" } },
+    { "value": 4, "suffix": "", "label": { "en": "festivals", "fr": "festivals", "es": "festivales" } },
+    { "value": 5, "suffix": "", "label": { "en": "radios", "fr": "radios", "es": "radios" } },
+    { "value": 1.8, "suffix": "k", "label": { "en": "followers", "fr": "followers", "es": "seguidores" } },
+    { "value": 8.7, "suffix": "k", "label": { "en": "streams & dl", "fr": "streams & dl", "es": "streams y descargas" } }
+  ],
+
+  "bio": {
+    "en": [
+      "Straight out from the capital of Colombia, the city that gave birth to his stage name, BogotaBeats offers an energetic and festive musical universe.",
+      "Drawing inspiration from Latin rhythms, Afro percussion, and the sun-drenched instruments of traditional South American music, his DJ sets blend the warm vibes of Tribal House, the energy of Latin Club, and the power of Latin Tech.",
+      "From a sunset on the beach to a rave party in the middle of the jungle, get ready to dance all night long during this guaranteed musical journey!"
+    ],
+    "fr": [
+      "Venu tout droit de la capitale de la Colombie, ville à l’origine de son nom de scène, BogotaBeats vous propose un univers musical énergique et festif.",
+      "Inspirés par les rythmes latins, les percussions afro et les instruments ensoleillés de la musique traditionnelle d’Amérique du Sud, ses DJ sets mélangent les vibes chaleureuses de la Tribal House, l’énergie de la Latin Club et la puissance de la Latin Tech.",
+      "Du coucher de soleil sur la plage à la rave party au milieu de la jungle, préparez-vous à danser toute la nuit lors de ce voyage musical assuré !"
+    ],
+    "es": [
+      "Directo desde la capital de Colombia, la ciudad que dio origen a su nombre artístico, BogotaBeats propone un universo musical enérgico y festivo.",
+      "Inspirado en los ritmos latinos, la percusión afro y los instrumentos soleados de la música tradicional sudamericana, sus DJ sets mezclan la calidez del Tribal House, la energía del Latin Club y la potencia del Latin Tech.",
+      "Del atardecer en la playa a la rave en medio de la selva: prepárate para bailar toda la noche en este viaje musical garantizado."
+    ]
+  },
+
+  "inspirations": {
+    "en": "BogotaBeats drew his first inspirations from Latin and Afro House, influenced by producers such as Manybeat, Mélé, Robbie Rivera and Sparrow & Barbossa. He quickly broadened his horizons to more impactful genres — latin club and latin tech — closely following the work of Ynfynyt Scroll, Wost, Brenda and CRRDR.",
+    "fr": "BogotaBeats a puisé ses premières inspirations dans les sonorités de la House Latin et Afro, avec l’influence de producteurs tels que Manybeat, Mélé, Robbie Rivera et Sparrow & Barbossa. Il a rapidement élargi son horizon vers des univers plus percutants — latin club et latin tech — en suivant de près le travail de Ynfynyt Scroll, Wost, Brenda et CRRDR.",
+    "es": "BogotaBeats encontró sus primeras inspiraciones en el Latin y Afro House, influenciado por productores como Manybeat, Mélé, Robbie Rivera y Sparrow & Barbossa. Pronto amplió su horizonte hacia géneros más contundentes — latin club y latin tech — siguiendo de cerca el trabajo de Ynfynyt Scroll, Wost, Brenda y CRRDR."
+  },
+  "influences": ["Manybeat", "Mélé", "Robbie Rivera", "Sparrow & Barbossa", "Ynfynyt Scroll", "Wost", "Brenda", "CRRDR"],
+
+  "music": {
+    "en": "High energy, bodies in motion, tropical heat — a sonic journey that transcends musical borders. VogueBeats, Baile Funk, Guaracha, Reggaeton and Cumbia infuse his sets with unexpected, explosive moments.",
+    "fr": "Ambiance survoltée, corps en mouvement, chaleur tropicale : un voyage sonore qui transcende les frontières musicales. VogueBeats, Baile Funk, Guaracha, Reggaeton ou Cumbia viennent enrichir ses sets d’une touche inattendue et explosive.",
+    "es": "Energía a tope, cuerpos en movimiento, calor tropical: un viaje sonoro que trasciende las fronteras musicales. VogueBeats, Baile Funk, Guaracha, Reggaetón y Cumbia llenan sus sets de momentos inesperados y explosivos."
+  },
+
+  "setup": {
+    "en": ["Pioneer DDJ-FLX10 controller + Rekordbox (provided)", "or 2–3 × CDJ-3000 / CDJ-2000NXS2 + DJM-A9 / DJM-900NXS2", "2 stage monitors, independent gain", "Based in Rennes (FR) — train / shuttle preferred"],
+    "fr": ["Contrôleur Pioneer DDJ-FLX10 + Rekordbox (fourni)", "ou 2–3 × CDJ-3000 / CDJ-2000NXS2 + DJM-A9 / DJM-900NXS2", "2 retours de scène, gain indépendant", "Départ : Rennes — train / navette privilégiés"],
+    "es": ["Controlador Pioneer DDJ-FLX10 + Rekordbox (incluido)", "o 2–3 × CDJ-3000 / CDJ-2000NXS2 + DJM-A9 / DJM-900NXS2", "2 monitores de escenario, ganancia independiente", "Con base en Rennes (FR) — preferible tren / traslado"]
+  }
+}
