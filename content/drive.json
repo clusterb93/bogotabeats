@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-10-13T09:39:04.550Z",
+  "syncedAt": "2026-10-13T09:57:30.917Z",
   "id": "1i7wBmtRWy71WacUW7GR61aymIdeZMwTe",
   "name": "PackPresse",
   "files": [
@@ -11,6 +11,11 @@
     {
       "id": "1R4GUc54_802_VmTci4_ExaMW5W2ZExSkUY9W10w0kkQ",
       "name": "Fiche Technique - BogotaBeats (FR)",
+      "kind": "doc"
+    },
+    {
+      "id": "1IOJ5K3eJ8sjCj8Jm4nEOJRlO9tqVae6vjmygQiLzb9g",
+      "name": "Fiche Technique - Noukiflex b2b BogotaBeats (FR)",
       "kind": "doc"
     },
     {
