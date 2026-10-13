@@ -42,7 +42,7 @@ Ajouter un bloc `{ … }` dans la liste (l'ordre n'a pas d'importance, le site t
 | `event` | ✅ | Nom de la soirée / de l'événement |
 | `venue` |    | Lieu (club, bar, radio…) |
 | `city`  |    | Ville |
-| `type`  |    | `club`, `festival`, `radio`, `private` ou `live` (affiché en badge) |
+| `type`  |    | `club`, `festival`, `radio`, `private`, `live` ou `open air` (affiché en badge, traduit) |
 | `link`  |    | Billetterie, event Facebook/Instagram, replay… → bouton **Info** (et « Event page » sur la carte Prochaine date) |
 | `time`  |    | Horaires, ex. `"20:45–00:45"` → affichés + utilisés par « Ajouter au calendrier » |
 | `flyer` |    | Nom d'un fichier du dossier Drive **Flyers**, ou URL d'image (voir plus bas) |

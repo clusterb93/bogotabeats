@@ -163,7 +163,7 @@ const flyerSrc = (f, w) => (f?.url ? f.url : f ? drive.img(f.id, w) : '');
 
 function gigRow(d) {
   const where = [d.venue, d.city].filter(Boolean).join(' · ');
-  const type = (d.type || 'club').toLowerCase();
+  const type = (d.type || 'club').toLowerCase().replace(/[\s_-]+/g, ''); // "open air" → "openair"
   const badge = d.link
     ? `<a class="btn btn--ghost btn--sm" href="${esc(d.link)}" target="_blank" rel="noopener">${t('dates.info')}</a>`
     : `<span class="gig__type gig__type--${esc(type)}">${esc(t(`type.${type}`) === `type.${type}` ? type : t(`type.${type}`))}</span>`;

@@ -3,8 +3,8 @@
     "date": "2026-10-17",
     "event": "La Petite Marée — b2b Noukiflex",
     "venue": "Salle des fêtes",
-    "city": "Saint-Jacut-de-la-Mer",
-    "type": "live",
+    "city": "Saint-Jacut-de-la-Mer, FR",
+    "type": "club",
     "time": "18:30",
     "link": "https://www.helloasso.com/associations/la-jaguine/evenements/la-petite-maree"
   },
@@ -16,32 +16,32 @@
       "es": "Club Magma — FUSION #2 (1er aniversario)"
     },
     "venue": "Grabuge",
-    "city": "Rennes",
+    "city": "Rennes, FR",
     "type": "club",
     "time": "20:45–00:45",
     "link": "https://www.instagram.com/club__magma/p/DeZIa2XgTPx/"
   },
   {
     "date": "2026-10-10",
-    "event": "Whack To The West",
-    "venue": "Waack à Rennes",
-    "city": "Rennes",
-    "type": "club",
+    "event": "Maintenant Festival - Whack To The West",
+    "venue": "Salle de la Cité",
+    "city": "Rennes, FR",
+    "type": "festival",
     "link": "https://www.instagram.com/waackarennes/p/Ddb25duMWdX/"
   },
   {
     "date": "2026-09-26",
     "event": "Club Magma — Closing saison",
     "venue": "Nul Bar After",
-    "city": "Belle-Île-en-Mer",
+    "city": "Belle-Île-en-Mer, FR",
     "type": "club",
     "link": "https://www.instagram.com/club__magma/p/DdbTRUigdrq/"
   },
   {
     "date": "2026-09-18",
-    "event": "SantaMuerte Perreo",
+    "event": "Résidence SantaMuerte Perreo",
     "venue": "Ohm Town",
-    "city": "Nantes",
+    "city": "Nantes, FR",
     "type": "club",
     "link": ""
   },
@@ -49,31 +49,47 @@
     "date": "2026-09-12",
     "event": "I'm From Rennes — Closing (b2b Noukiflex)",
     "venue": "Salle de la Cité",
-    "city": "Rennes",
+    "city": "Rennes, FR",
     "type": "festival",
     "link": ""
   },
   {
     "date": "2026-09-11",
-    "event": "Club Magma invite Lula Sixsixsix (b2b Noukiflex)",
+    "event": "Club Magma invite Lula 666 (b2b Noukiflex)",
     "venue": "Quincé 35 Volts",
-    "city": "Rennes",
-    "type": "club",
+    "city": "Rennes, FR",
+    "type": "open air",
     "link": "https://www.instagram.com/club__magma/p/DdrC7wCABt4/"
   },
   {
     "date": "2026-09-04",
     "event": "Bailatón solidario pour la Colombie",
     "venue": "B.A.M",
-    "city": "Rennes",
-    "type": "live",
+    "city": "Rennes, FR",
+    "type": "club",
     "link": "https://www.instagram.com/bogotabeats/p/DcbYDKvuYea/"
+  },
+  {
+    "date": "2026-07-25",
+    "event": "Gagnant tremplin DJ",
+    "venue": "Chant de l'eucalyptus",
+    "city": "Plouhinec, FR",
+    "type": "festival",
+    "link": "https://www.instagram.com/p/DbBGusYDSBw"
+  },
+  {
+    "date": "2026-05-15",
+    "event": "Brussels Pride Week",
+    "venue": "Les Grands Carmes",
+    "city": "Bruxelles, BE",
+    "type": "club",
+    "link": "https://www.instagram.com/p/DYUExtSDVhj"
   },
   {
     "date": "2026-02-28",
     "event": "Gison3",
     "venue": "Macadam",
-    "city": "Nantes",
+    "city": "Nantes, FR",
     "type": "club",
     "link": "https://soundcloud.com/bogotabeats/macadam_gison3"
   },
@@ -97,7 +113,7 @@
     "date": "2025-09-20",
     "event": "Club Magina — Fusion #1 (b2b Noukiflex)",
     "venue": "Grabuge",
-    "city": "Rennes",
+    "city": "Rennes, FR",
     "type": "club",
     "link": ""
   },
@@ -105,31 +121,7 @@
     "date": "2025-06-28",
     "event": "SantaMuerte ft. Luma",
     "venue": "Ohm Town",
-    "city": "Nantes",
-    "type": "club",
-    "link": ""
-  },
-  {
-    "date": "2025-06-27",
-    "event": "Perreo Con-Sentido",
-    "venue": "Bar Désordre",
-    "city": "",
-    "type": "club",
-    "link": ""
-  },
-  {
-    "date": "2025-04-19",
-    "event": "Waack Me Up",
-    "venue": "Café des Champs Libres",
-    "city": "Rennes",
-    "type": "club",
-    "link": ""
-  },
-  {
-    "date": "2025-03-14",
-    "event": "Perreo Con-Sentido",
-    "venue": "Bar Désordre",
-    "city": "",
+    "city": "Nantes, FR",
     "type": "club",
     "link": ""
   }

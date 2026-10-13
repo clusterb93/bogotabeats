@@ -59,7 +59,8 @@
     "dates.tomorrow": "Tomorrow",
     "dates.event": "Event page",
     "dates.ics": "Add to calendar",
-    "dates.map": "Directions"
+    "dates.map": "Directions",
+    "type.openair": "Open air"
   },
   "fr": {
     "nav.home": "Accueil",
@@ -121,7 +122,8 @@
     "dates.tomorrow": "Demain",
     "dates.event": "Voir l'événement",
     "dates.ics": "Ajouter au calendrier",
-    "dates.map": "Itinéraire"
+    "dates.map": "Itinéraire",
+    "type.openair": "Plein air"
   },
   "es": {
     "nav.home": "Inicio",
@@ -183,6 +185,7 @@
     "dates.tomorrow": "Mañana",
     "dates.event": "Ver el evento",
     "dates.ics": "Añadir al calendario",
-    "dates.map": "Cómo llegar"
+    "dates.map": "Cómo llegar",
+    "type.openair": "Al aire libre"
   }
 }

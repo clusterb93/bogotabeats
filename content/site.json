@@ -8,9 +8,9 @@
   ],
   "defaultTheme": "dark",
   "tagline": {
-    "en": "Latin Club - Guaracha · Latin Tech · Reggaeton",
-    "fr": "Latin Club - Guaracha · Latin Tech · Reggaeton",
-    "es": "Latin Club - Guaracha · Latin Tech · Reggaeton"
+    "en": "Latin Club · Guaracha · Latin Tech · Reggaeton",
+    "fr": "Latin Club · Guaracha · Latin Tech · Reggaeton",
+    "es": "Latin Club · Guaracha · Latin Tech · Reggaeton"
   },
   "listenUrl": "https://soundcloud.com/bogotabeats",
   "drive": {
@@ -76,7 +76,7 @@
   ],
   "stats": [
     {
-      "value": 100,
+      "value": 150,
       "suffix": "+",
       "label": {
         "en": "gigs",
@@ -85,7 +85,7 @@
       }
     },
     {
-      "value": 4,
+      "value": 7,
       "suffix": "",
       "label": {
         "en": "festivals",
@@ -94,7 +94,7 @@
       }
     },
     {
-      "value": 5,
+      "value": 8,
       "suffix": "",
       "label": {
         "en": "radios",
@@ -103,7 +103,7 @@
       }
     },
     {
-      "value": 1.8,
+      "value": 2.1,
       "suffix": "k",
       "label": {
         "en": "followers",
@@ -112,7 +112,7 @@
       }
     },
     {
-      "value": 8.7,
+      "value": 12.7,
       "suffix": "k",
       "label": {
         "en": "streams & dl",
@@ -168,7 +168,7 @@
       "1 × table de mixage Pioneer DJM-900NXS2 ou DJM-A9"
     ],
     "es": [
-      "3 × Pioneer CDJ-3000 (enlazados)",
+      "3 × Pioneer CDJ-3000 (linked)",
       "1 × mezcladora Pioneer DJM-900NXS2 o DJM-A9"
     ]
   }

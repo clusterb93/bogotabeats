@@ -288,6 +288,7 @@ body::after {
 .gig__type { font: 800 .65rem/1 var(--body); letter-spacing: .16em; text-transform: uppercase; padding: 6px 8px; border: 1px solid var(--line); color: var(--muted); }
 .gig__type--radio { border-color: var(--accent-3); color: var(--accent-3); }
 .gig__type--festival { border-color: var(--accent-2); color: var(--accent-2); }
+.gig__type--openair { border-color: var(--accent); color: var(--accent); }
 [data-theme="light"] .gig__type--radio { color: #9a6a00; border-color: var(--accent-3); }
 .gigs--past .gig__day { color: var(--text); }
 .gigs--past .gig { opacity: .82; }

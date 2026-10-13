@@ -17,14 +17,14 @@ const dates = await json('dates.json');
 const drive = await json('drive.json');
 const mixes = await json('mixes.json');
 
-const TYPES = ['club', 'festival', 'radio', 'private', 'live'];
+const TYPES = ['club', 'festival', 'radio', 'private', 'live', 'openair'];
 if (Array.isArray(dates)) {
   const today = new Date().toISOString().slice(0, 10);
   dates.forEach((d, i) => {
     const where = `dates.json #${i + 1} (${d.event || '?'})`;
     if (!/^\d{4}-\d{2}-\d{2}$/.test(d.date || '') || isNaN(new Date(d.date))) errors.push(`${where} : date "${d.date}" invalide, format attendu AAAA-MM-JJ`);
     if (!d.event) errors.push(`${where} : champ "event" vide`);
-    if (d.type && !TYPES.includes(d.type)) warnings.push(`${where} : type "${d.type}" inconnu (${TYPES.join(', ')})`);
+    if (d.type && !TYPES.includes(d.type.toLowerCase().replace(/[\s_-]+/g, ''))) warnings.push(`${where} : type "${d.type}" inconnu (${TYPES.join(', ')})`);
     if (d.link && !/^https?:\/\//.test(d.link)) warnings.push(`${where} : le lien doit commencer par https://`);
   });
   const up = dates.filter((d) => d.date >= today).length;
