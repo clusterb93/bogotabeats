@@ -49,7 +49,7 @@ Les dates se classent **toutes seules** en « À venir » / « Dernières dates 
 | [docs/MISE-A-JOUR.md](docs/MISE-A-JOUR.md) | Mettre à jour dates, sets, textes, photos — avec exemples à copier-coller |
 | [docs/DRIVE.md](docs/DRIVE.md) | Comment le site lit le Google Drive, conventions de nommage, Google Sheets Dates/Sets |
 | [docs/THEMES-ET-LANGUES.md](docs/THEMES-ET-LANGUES.md) | Les thèmes Rave / Jungle, les couleurs, ajouter une langue |
-| [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md) | Mettre le site en ligne (GitHub Pages + synchro automatique quotidienne, Netlify…) |
+| [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md) | Hébergement IONOS + bogotabeats.com, déploiement automatique à chaque push, dépannage |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Organisation du code, pour faire évoluer le site |
 | [CLAUDE.md](CLAUDE.md) | Consignes pour un assistant IA qui travaillerait sur ce projet |
 
@@ -67,11 +67,13 @@ bogotabeats/
 │   ├── mixes.json          Mixes SoundCloud (platine vinyle)
 │   ├── ui.json             Textes de l'interface en en / fr / es
 │   └── drive.json          GÉNÉRÉ par `npm run sync` — ne pas modifier à la main
+├── public/               .htaccess (HTTPS, cache, sécurité) + robots.txt pour IONOS
 ├── scripts/
 │   ├── sync-drive.mjs      Lit le Drive public (sans clé API) → content/drive.json
 │   ├── check-content.mjs   Vérifie le contenu avant publication
+│   ├── build.mjs           Prépare dist/ (fichiers publics uniquement)
 │   └── serve.mjs           Serveur local de développement
 ├── templates/              Modèles CSV à importer dans Google Sheets (Dates, Sets)
 ├── docs/                   Documentation
-└── .github/workflows/      Synchro Drive quotidienne + déploiement GitHub Pages
+└── .github/workflows/      Synchro Drive quotidienne + déploiement IONOS (bogotabeats.com)
 ```

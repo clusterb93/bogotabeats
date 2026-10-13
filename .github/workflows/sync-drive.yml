@@ -1,4 +1,7 @@
-# Synchronise le Drive tous les jours (et à la demande), puis publie le site sur GitHub Pages.
+# Synchronise le Drive (tous les jours, à chaque push et à la demande) puis publie le site :
+#   - sur IONOS (bogotabeats.com) par SFTP dès que les secrets IONOS_* sont configurés,
+#   - sinon sur GitHub Pages (ancienne adresse), pour qu'il n'y ait jamais de coupure.
+# Mode d'emploi : docs/DEPLOIEMENT.md
 name: Sync Drive & deploy
 
 on:
@@ -14,15 +17,14 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: deploy
   cancel-in-progress: true
 
 jobs:
-  sync-deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+    outputs:
+      ionos: ${{ steps.target.outputs.ionos }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -41,9 +43,67 @@ jobs:
             git commit -m "sync: contenu du Drive"
             git push
           fi
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - name: Construire le site (dist/)
+        run: node scripts/build.mjs
+      - name: Choisir la cible
+        id: target
+        env:
+          IONOS_HOST: ${{ secrets.IONOS_SFTP_HOST }}
+        run: echo "ionos=$([ -n "$IONOS_HOST" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+      - name: Garder dist/ pour IONOS
+        if: steps.target.outputs.ionos == 'true'
+        uses: actions/upload-artifact@v4
         with:
-          path: .
+          name: dist
+          path: dist
+          include-hidden-files: true   # pour .htaccess
+          retention-days: 3
+      - name: Garder dist/ pour GitHub Pages
+        if: steps.target.outputs.ionos != 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy-ionos:
+    needs: build
+    if: needs.build.outputs.ionos == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: ionos
+      url: https://bogotabeats.com
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: Installer lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: Envoyer sur IONOS (SFTP, seuls les fichiers modifiés)
+        env:
+          HOST: ${{ secrets.IONOS_SFTP_HOST }}
+          USER: ${{ secrets.IONOS_SFTP_USER }}
+          LFTP_PASSWORD: ${{ secrets.IONOS_SFTP_PASSWORD }}
+          DIR: ${{ secrets.IONOS_SFTP_DIR }}
+        run: |
+          lftp -e "
+            set sftp:auto-confirm yes;
+            set net:max-retries 3; set net:timeout 30;
+            open --env-password -u \"$USER\" sftp://$HOST;
+            mirror --reverse --delete --only-newer --parallel=4 --verbose --exclude-glob .well-known/ dist/ \"${DIR:-/}\";
+            bye"
+      - name: Vérifier que le site répond
+        run: |
+          sleep 5
+          curl -fsS -o /dev/null -w "bogotabeats.com → HTTP %{http_code}\n" https://bogotabeats.com/ || echo "::warning::bogotabeats.com ne répond pas encore (DNS/SSL en cours ?)"
+
+  deploy-pages:
+    needs: build
+    if: needs.build.outputs.ionos != 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
       - id: deploy
         uses: actions/deploy-pages@v4

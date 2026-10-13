@@ -1,6 +1,6 @@
 # CLAUDE.md — consignes pour l'assistant IA
 
-Site + EPK du DJ **BogotaBeats**. Statique, sans dépendance ni build. Docs détaillées dans `docs/`.
+Site + EPK du DJ **BogotaBeats**. Statique, sans dépendance ni framework (le « build » copie juste les fichiers publics dans dist/). Docs détaillées dans `docs/`.
 
 ## Règles
 
@@ -23,4 +23,5 @@ Site + EPK du DJ **BogotaBeats**. Statique, sans dépendance ni build. Docs dét
 npm run sync    # Drive → content/drive.json (+ Sheets Dates/Sets)
 npm run check   # validation du contenu
 npm run dev     # http://localhost:8080
+npm run build   # dist/ = fichiers publiés (déployés sur IONOS par GitHub Actions)
 ```
