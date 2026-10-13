@@ -43,7 +43,37 @@ Ajouter un bloc `{ … }` dans la liste (l'ordre n'a pas d'importance, le site t
 | `venue` |    | Lieu (club, bar, radio…) |
 | `city`  |    | Ville |
 | `type`  |    | `club`, `festival`, `radio`, `private` ou `live` (affiché en badge) |
-| `link`  |    | Billetterie, event Facebook, replay… → affiche un bouton **Info** à la place du badge |
+| `link`  |    | Billetterie, event Facebook/Instagram, replay… → bouton **Info** (et « Event page » sur la carte Prochaine date) |
+| `time`  |    | Horaires, ex. `"20:45–00:45"` → affichés + utilisés par « Ajouter au calendrier » |
+| `flyer` |    | Nom d'un fichier du dossier Drive **Flyers**, ou URL d'image (voir plus bas) |
+
+Le nom de la soirée peut être traduit : `"event": { "en": "…", "fr": "…", "es": "…" }`.
+
+### La carte « Next gig » ✨
+
+La date à venir **la plus proche** est mise en avant dans une grande carte : compte à rebours
+(« In 3 days », « Tomorrow », « Tonight! »), horaires, lieu, et 3 boutons :
+**Event page** (`link`), **Add to calendar** (fichier .ics généré automatiquement) et
+**Directions** (Google Maps sur lieu + ville). Les autres dates à venir sont listées dessous.
+
+### Les flyers 🖼️
+
+Dans le Drive PackPresse, crée un sous-dossier **`Flyers`** et déposes-y les visuels de tes soirées
+**en commençant le nom du fichier par la date** :
+
+```
+2026-10-16 - Club Magma Fusion #2 - Grabuge - Rennes.jpg
+```
+
+- Si la date existe déjà dans `dates.json`, le flyer lui est associé automatiquement (affiché dans la carte Next gig, cliquable en plein écran).
+- Si elle n'existe pas, **le flyer crée la date tout seul** à partir de son nom (`date - soirée - lieu - ville`).
+  → Le plus rapide : quand tu postes un flyer sur Instagram, dépose le même fichier dans ce dossier.
+
+### Et Instagram ?
+
+La lecture automatique d'Instagram n'est pas branchée (voir [DRIVE.md](DRIVE.md#instagram)) : demande
+simplement à Claude « mets à jour les dates depuis mon Instagram », il relit les posts publics
+(les tiens et ceux où tu es en collab) et complète `dates.json`.
 
 - **À venir / passées** : automatique selon la date du jour. Une date « à venir » bascule seule
   dans « Dernières dates » le lendemain.

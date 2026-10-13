@@ -32,10 +32,11 @@ Le rôle d'un sous-dossier est déduit de son **nom** (insensible aux majuscules
 
 | Le nom contient… | Rôle sur le site |
 |---|---|
+| `flyer`, `affiche`, `poster` | **Flyers** des soirées, associés aux dates par le début du nom (`2026-10-16 - …`) — voir MISE-A-JOUR.md |
 | `photo`, `pic`, `image`, `press` | Galerie **Press photos** + photos d'accueil/bio/contact |
 | `logo` | Logos du site (nav, héros) + section **Logos** téléchargeables |
 | `video`, `clip`, `teaser`, `aftermovie` | Section **Videos** |
-| *n'importe quoi d'autre* (ex. `Flyers`, `Mixes`, `Presse`) | **Nouvelle section** dans l'EPK, titrée avec le nom du dossier (images en galerie, vidéos, documents en cartes de téléchargement) |
+| *n'importe quoi d'autre* (ex. `Mixes`, `Presse`, `Backstage`) | **Nouvelle section** dans l'EPK, titrée avec le nom du dossier (images en galerie, vidéos, documents en cartes de téléchargement) |
 
 Fichiers **à la racine** du Drive :
 
@@ -76,3 +77,16 @@ Modifier `drive.folderId` dans `content/site.json` (l'identifiant est la fin de 
 Tout ce qui est dans ce dossier est **public** (lien partagé + site). Ne pas y déposer de contrats,
 devis, données personnelles de tiers, etc. — utiliser un autre dossier non partagé.
 Les fiches techniques contiennent ton numéro de téléphone : c'est voulu pour le booking, mais à garder en tête.
+
+## Instagram
+
+Lire Instagram automatiquement (GitHub Actions chaque matin) demanderait l'**API Instagram Graph** :
+compte professionnel (Créateur/Entreprise) relié à une page Facebook, une application Meta
+développeur, un jeton d'accès à renouveler tous les 60 jours (stocké en secret GitHub), puis un
+script qui devine les dates dans les légendes — fragile, car chaque légende est écrite différemment,
+et les posts des collectifs (Club Magma, Waack à Rennes…) n'y apparaissent pas tous.
+
+Choix retenu, plus fiable :
+1. **Flyers dans le Drive** (`Flyers/2026-10-16 - Soirée - Lieu - Ville.jpg`) → la date et le flyer apparaissent seuls.
+2. **Mise à jour à la demande par Claude** depuis le profil public Instagram (lecture des légendes
+   et des posts en collaboration), relue avant publication.

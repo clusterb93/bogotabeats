@@ -57,11 +57,12 @@ const hidden = new Set((site.drive?.hiddenFiles || []).map(norm));
 const visible = (files) => files.filter((f) => !hidden.has(norm(f.name)));
 const allFiles = (f) => [...f.files, ...f.folders.flatMap(allFiles)];
 const ROLES = [
+  ['flyers', /flyer|affiche|poster/],
   ['photos', /photo|pic|image|press/],
   ['logos', /logo/],
   ['videos', /video|clip|teaser|aftermovie/],
 ];
-const folders = { photos: [], logos: [], videos: [], extra: [] };
+const folders = { flyers: [], photos: [], logos: [], videos: [], extra: [] };
 for (const f of tree.folders) {
   const role = ROLES.find(([, re]) => re.test(norm(f.name)))?.[0] || 'extra';
   folders[role].push(f);
@@ -140,6 +141,26 @@ function renderSets() {
 
 const LOCALES = { en: 'en-GB', fr: 'fr-FR', es: 'es-ES' };
 const fmt = (iso, opts) => new Date(`${iso}T12:00:00`).toLocaleDateString(LOCALES[lang] || lang, opts);
+// Flyers : dossier Drive "Flyers" (ou "Affiches"). Un fichier nommé "2026-10-16 ....jpg" est associé
+// automatiquement à la date du même jour ; s'il n'y a pas encore de date ce jour-là, le flyer en crée une,
+// lue dans son nom : "AAAA-MM-JJ - Soirée - Lieu - Ville.jpg".
+const flyers = filesOf('flyers', 'image');
+const flyerDate = (f) => f.name.match(/^(\d{4}-\d{2}-\d{2})/)?.[1];
+const allDates = (() => {
+  const list = dates.filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d.date)).map((d) => ({ ...d }));
+  for (const f of flyers) {
+    const day = flyerDate(f);
+    if (!day) continue;
+    const match = list.find((d) => d.date === day);
+    if (match) { match.flyerFile ??= f; continue; }
+    const [, event = '', venue = '', city = ''] = f.name.replace(/\.[a-z0-9]+$/i, '').split(/\s+[-–]\s+/);
+    list.push({ date: day, event: event || 'BogotaBeats', venue, city, type: 'club', flyerFile: f });
+  }
+  for (const d of list) if (d.flyer && !d.flyerFile) d.flyerFile = byName(flyers, d.flyer) || (/^https?:/.test(d.flyer) ? { url: d.flyer } : null);
+  return list;
+})();
+const flyerSrc = (f, w) => (f?.url ? f.url : f ? drive.img(f.id, w) : '');
+
 function gigRow(d) {
   const where = [d.venue, d.city].filter(Boolean).join(' · ');
   const type = (d.type || 'club').toLowerCase();
@@ -148,22 +169,71 @@ function gigRow(d) {
     : `<span class="gig__type gig__type--${esc(type)}">${esc(t(`type.${type}`) === `type.${type}` ? type : t(`type.${type}`))}</span>`;
   return `<li class="gig reveal">
     <div class="gig__date"><span class="gig__day">${fmt(d.date, { day: '2-digit' })}</span><span class="gig__month">${fmt(d.date, { month: 'short' }).replace('.', '')}</span><span class="gig__year">${d.date.slice(0, 4)}</span></div>
-    <div><p class="gig__event">${esc(tr(d.event))}</p>${where ? `<p class="gig__where">${esc(where)}</p>` : ''}</div>
+    <div><p class="gig__event">${esc(tr(d.event))}</p>${where ? `<p class="gig__where">${esc(where)}${d.time ? ` · ${esc(d.time)}` : ''}</p>` : ''}</div>
     ${badge}
   </li>`;
+}
+
+// Compte à rebours lisible : "Tonight", "Tomorrow", "In 3 days"…
+function countdown(day, today) {
+  const diff = Math.round((new Date(`${day}T12:00:00`) - new Date(`${today}T12:00:00`)) / 864e5);
+  if (diff === 0) return t('dates.tonight');
+  if (diff === 1) return t('dates.tomorrow');
+  return new Intl.RelativeTimeFormat(LOCALES[lang] || lang, { numeric: 'auto' }).format(diff, diff > 60 ? 'month' : 'day')
+    .replace(/^./, (c) => c.toUpperCase());
+}
+
+// Fichier .ics pour "Ajouter au calendrier" (heure de début lue dans "time" : "20:45–00:45")
+function icsUrl(d) {
+  const [start, end] = (d.time || '').split(/[–-]/).map((s) => s.trim().replace('h', ':'));
+  const ymd = d.date.replace(/-/g, '');
+  const hm = (s) => (s && /^\d{1,2}:\d{2}$/.test(s) ? s.padStart(5, '0').replace(':', '') + '00' : null);
+  const s = hm(start), e = hm(end);
+  const endDay = e && s && e < s ? new Date(new Date(`${d.date}T12:00:00`).getTime() + 864e5).toLocaleDateString('sv').replace(/-/g, '') : ymd;
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//BogotaBeats//Tour//EN', 'BEGIN:VEVENT',
+    `UID:${ymd}-${encodeURIComponent(tr(d.event)).slice(0, 40)}@bogotabeats`,
+    s ? `DTSTART;TZID=Europe/Paris:${ymd}T${s}` : `DTSTART;VALUE=DATE:${ymd}`,
+    s && e ? `DTEND;TZID=Europe/Paris:${endDay}T${e}` : null,
+    `SUMMARY:BogotaBeats @ ${tr(d.event)}`, `LOCATION:${[d.venue, d.city].filter(Boolean).join(', ')}`,
+    d.link ? `URL:${d.link}` : null, 'END:VEVENT', 'END:VCALENDAR'].filter(Boolean);
+  return URL.createObjectURL(new Blob([lines.join('\r\n')], { type: 'text/calendar' }));
+}
+
+// Carte "Prochaine date" : la date à venir la plus proche, mise en avant
+function nextGigCard(d, today) {
+  const where = [d.venue, d.city].filter(Boolean).join(' · ');
+  const maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([d.venue, d.city].filter(Boolean).join(' '))}`;
+  const flyer = flyerSrc(d.flyerFile, 900);
+  if (flyer) galleries[`flyer-${d.date}`] = [d.flyerFile];
+  return `<article class="next-gig reveal${flyer ? ' next-gig--flyer' : ''}">
+    ${flyer
+      ? `<button type="button" class="next-gig__flyer" data-lb="flyer-${d.date}" data-i="0" aria-label="Flyer"><img src="${flyer}" alt="Flyer — ${esc(tr(d.event))}" referrerpolicy="no-referrer"></button>`
+      : `<div class="next-gig__date"><span class="next-gig__day">${fmt(d.date, { day: '2-digit' })}</span><span class="next-gig__month">${fmt(d.date, { month: 'long' })}</span><span class="next-gig__wd">${fmt(d.date, { weekday: 'long' })}</span></div>`}
+    <div class="next-gig__body">
+      <p class="next-gig__kicker"><span class="next-gig__pulse"></span>${t('dates.next')} · <b>${esc(countdown(d.date, today))}</b></p>
+      <h3 class="next-gig__event">${esc(tr(d.event))}</h3>
+      <p class="next-gig__meta">${fmt(d.date, { weekday: 'long', day: 'numeric', month: 'long' })}${d.time ? ` · ${esc(d.time)}` : ''}</p>
+      ${where ? `<p class="next-gig__where">${esc(where)}</p>` : ''}
+      <div class="next-gig__cta">
+        ${d.link ? `<a class="btn btn--accent btn--sm" href="${esc(d.link)}" target="_blank" rel="noopener">${t('dates.event')}</a>` : ''}
+        <a class="btn btn--ghost btn--sm" href="${icsUrl(d)}" download="bogotabeats-${d.date}.ics">${t('dates.ics')}</a>
+        ${where ? `<a class="btn btn--ghost btn--sm" href="${maps}" target="_blank" rel="noopener">${t('dates.map')}</a>` : ''}
+      </div>
+    </div>
+  </article>`;
 }
 
 const PAST_VISIBLE = 6;
 let showAllPast = false;
 function renderDates() {
-  // Le tri à venir / passé se fait tout seul selon la date du jour
-  const today = new Date().toISOString().slice(0, 10);
-  const valid = dates.filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d.date));
-  const upcoming = valid.filter((d) => d.date >= today).sort((a, b) => a.date.localeCompare(b.date));
-  const past = valid.filter((d) => d.date < today).sort((a, b) => b.date.localeCompare(a.date));
+  // Le tri à venir / passé se fait tout seul selon la date du jour (heure locale du visiteur)
+  const today = new Date().toLocaleDateString('sv');
+  const upcoming = allDates.filter((d) => d.date >= today).sort((a, b) => a.date.localeCompare(b.date));
+  const past = allDates.filter((d) => d.date < today).sort((a, b) => b.date.localeCompare(a.date));
 
   $('#upcoming').innerHTML = upcoming.length
-    ? `<h3 class="h3" style="margin-top:0">${t('dates.upcoming')}</h3><ol class="gigs">${upcoming.map(gigRow).join('')}</ol>`
+    ? nextGigCard(upcoming[0], today) + (upcoming.length > 1
+      ? `<h3 class="h3">${t('dates.upcoming')}</h3><ol class="gigs">${upcoming.slice(1).map(gigRow).join('')}</ol>` : '')
     : `<div class="empty-upcoming reveal"><p>${t('dates.none')}</p><a class="btn btn--accent btn--sm" href="#contact">${t('dates.book')}</a></div>`;
 
   $('#past').innerHTML = (showAllPast ? past : past.slice(0, PAST_VISIBLE)).map(gigRow).join('');
@@ -513,8 +583,8 @@ $('#morePast').addEventListener('click', () => { showAllPast = true; renderDates
 function openLb(i) {
   lbIndex = (i + lbList.length) % lbList.length;
   const p = lbList[lbIndex];
-  $('#lbImg').src = drive.img(p.id, 2000);
-  $('#lbDl').href = drive.download(p.id);
+  $('#lbImg').src = p.url || drive.img(p.id, 2000);
+  $('#lbDl').href = p.url || drive.download(p.id);
   $('#lightbox').hidden = false;
   document.body.style.overflow = 'hidden';
 }

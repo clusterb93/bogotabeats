@@ -1,5 +1,66 @@
 [
   {
+    "date": "2026-10-16",
+    "event": {
+      "en": "Club Magma — FUSION #2 (1st birthday)",
+      "fr": "Club Magma — FUSION #2 (1 an !)",
+      "es": "Club Magma — FUSION #2 (1er aniversario)"
+    },
+    "venue": "Grabuge",
+    "city": "Rennes",
+    "type": "club",
+    "time": "20:45–00:45",
+    "link": "https://www.instagram.com/club__magma/p/DeZIa2XgTPx/"
+  },
+  {
+    "date": "2026-10-09",
+    "event": "Whack To The West",
+    "venue": "Waack à Rennes",
+    "city": "Rennes",
+    "type": "club",
+    "link": "https://www.instagram.com/waackarennes/p/Ddb25duMWdX/"
+  },
+  {
+    "date": "2026-09-26",
+    "event": "Club Magma — Closing saison",
+    "venue": "Nul Bar After",
+    "city": "Belle-Île-en-Mer",
+    "type": "club",
+    "link": "https://www.instagram.com/club__magma/p/DdbTRUigdrq/"
+  },
+  {
+    "date": "2026-09-18",
+    "event": "SantaMuerte Perreo",
+    "venue": "Ohm Town",
+    "city": "Nantes",
+    "type": "club",
+    "link": ""
+  },
+  {
+    "date": "2026-09-12",
+    "event": "I'm From Rennes — Closing (b2b Noukiflex)",
+    "venue": "Salle de la Cité",
+    "city": "Rennes",
+    "type": "festival",
+    "link": ""
+  },
+  {
+    "date": "2026-09-11",
+    "event": "Club Magma invite Lula Sixsixsix (b2b Noukiflex)",
+    "venue": "Quincé 35 Volts",
+    "city": "Rennes",
+    "type": "club",
+    "link": "https://www.instagram.com/club__magma/p/DdrC7wCABt4/"
+  },
+  {
+    "date": "2026-09-04",
+    "event": "Bailatón solidario pour la Colombie",
+    "venue": "B.A.M",
+    "city": "Rennes",
+    "type": "live",
+    "link": "https://www.instagram.com/bogotabeats/p/DcbYDKvuYea/"
+  },
+  {
     "date": "2026-02-28",
     "event": "Gison3",
     "venue": "Macadam",

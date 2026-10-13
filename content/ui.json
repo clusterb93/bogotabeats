@@ -10,7 +10,7 @@
     "cta.listen": "Listen to a set",
     "sets.title": "Live sessions",
     "dates.title": "Tour dates",
-    "dates.upcoming": "Upcoming",
+    "dates.upcoming": "Also coming up",
     "dates.past": "Past gigs",
     "dates.more": "See all dates",
     "dates.none": "New dates coming soon",
@@ -53,7 +53,13 @@
     "mixes.more": "All mixes on SoundCloud",
     "mixes.play": "Play",
     "sets.sub": "Filmed DJ sets — club & radio.",
-    "gallery.swipe": "Swipe"
+    "gallery.swipe": "Swipe",
+    "dates.next": "Next gig",
+    "dates.tonight": "Tonight!",
+    "dates.tomorrow": "Tomorrow",
+    "dates.event": "Event page",
+    "dates.ics": "Add to calendar",
+    "dates.map": "Directions"
   },
   "fr": {
     "nav.home": "Accueil",
@@ -66,7 +72,7 @@
     "cta.listen": "Écouter un set",
     "sets.title": "Sessions live",
     "dates.title": "Dates",
-    "dates.upcoming": "À venir",
+    "dates.upcoming": "Et ensuite",
     "dates.past": "Dernières dates",
     "dates.more": "Voir toutes les dates",
     "dates.none": "Prochaines dates bientôt annoncées",
@@ -109,7 +115,13 @@
     "mixes.more": "Tous les mixes sur SoundCloud",
     "mixes.play": "Écouter",
     "sets.sub": "DJ sets filmés — club & radio.",
-    "gallery.swipe": "Fais glisser"
+    "gallery.swipe": "Fais glisser",
+    "dates.next": "Prochaine date",
+    "dates.tonight": "Ce soir !",
+    "dates.tomorrow": "Demain",
+    "dates.event": "Voir l'événement",
+    "dates.ics": "Ajouter au calendrier",
+    "dates.map": "Itinéraire"
   },
   "es": {
     "nav.home": "Inicio",
@@ -122,7 +134,7 @@
     "cta.listen": "Escuchar un set",
     "sets.title": "Sesiones en vivo",
     "dates.title": "Fechas",
-    "dates.upcoming": "Próximas",
+    "dates.upcoming": "Y después",
     "dates.past": "Fechas pasadas",
     "dates.more": "Ver todas las fechas",
     "dates.none": "Nuevas fechas muy pronto",
@@ -165,6 +177,12 @@
     "mixes.more": "Todos los mixes en SoundCloud",
     "mixes.play": "Escuchar",
     "sets.sub": "DJ sets grabados en video — club y radio.",
-    "gallery.swipe": "Desliza"
+    "gallery.swipe": "Desliza",
+    "dates.next": "Próxima fecha",
+    "dates.tonight": "¡Esta noche!",
+    "dates.tomorrow": "Mañana",
+    "dates.event": "Ver el evento",
+    "dates.ics": "Añadir al calendario",
+    "dates.map": "Cómo llegar"
   }
 }
