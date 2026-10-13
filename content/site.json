@@ -158,22 +158,16 @@
   },
   "setup": {
     "en": [
-      "Pioneer DDJ-FLX10 controller + Rekordbox (provided)",
-      "or 2–3 × CDJ-3000 / CDJ-2000NXS2 + DJM-A9 / DJM-900NXS2",
-      "2 stage monitors, independent gain",
-      "Based in Rennes (FR) — train / shuttle preferred"
+      "3 × Pioneer CDJ-3000 (linked)",
+      "1 × Pioneer DJM-900NXS2 or DJM-A9 mixer"
     ],
     "fr": [
-      "Contrôleur Pioneer DDJ-FLX10 + Rekordbox (fourni)",
-      "ou 2–3 × CDJ-3000 / CDJ-2000NXS2 + DJM-A9 / DJM-900NXS2",
-      "2 retours de scène, gain indépendant",
-      "Départ : Rennes — train / navette privilégiés"
+      "3 × Pioneer CDJ-3000 (linkées)",
+      "1 × table de mixage Pioneer DJM-900NXS2 ou DJM-A9"
     ],
     "es": [
-      "Controlador Pioneer DDJ-FLX10 + Rekordbox (incluido)",
-      "o 2–3 × CDJ-3000 / CDJ-2000NXS2 + DJM-A9 / DJM-900NXS2",
-      "2 monitores de escenario, ganancia independiente",
-      "Con base en Rennes (FR) — preferible tren / traslado"
+      "3 × Pioneer CDJ-3000 (enlazados)",
+      "1 × mezcladora Pioneer DJM-900NXS2 o DJM-A9"
     ]
   }
 }
