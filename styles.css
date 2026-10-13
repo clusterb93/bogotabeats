@@ -521,6 +521,8 @@ body::after {
   .themes-wrap::before { content: attr(data-label); font: 600 .72rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
   .nav__tools { flex-direction: column; gap: 18px; }
   .nav.is-open .nav__links { transform: none; }
+  /* Le flou de la barre (backdrop-filter) enfermerait le menu plein écran dans ses 72 px : on le coupe quand le menu est ouvert */
+  .nav.is-open { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--bg); }
   .nav.is-open .nav__burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .nav.is-open .nav__burger span:nth-child(2) { opacity: 0; }
   .nav.is-open .nav__burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }

@@ -609,8 +609,15 @@ const nav = $('#nav');
 const onScroll = () => nav.classList.toggle('is-solid', scrollY > 40);
 addEventListener('scroll', onScroll, { passive: true });
 onScroll();
-$('#burger').onclick = () => { const open = nav.classList.toggle('is-open'); $('#burger').setAttribute('aria-expanded', open); };
-$('#navLinks').addEventListener('click', (e) => { if (e.target.tagName === 'A') nav.classList.remove('is-open'); });
+// Menu mobile : la page derrière ne défile plus tant qu'il est ouvert
+const setMenu = (open) => {
+  nav.classList.toggle('is-open', open);
+  $('#burger').setAttribute('aria-expanded', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+};
+$('#burger').onclick = () => setMenu(!nav.classList.contains('is-open'));
+$('#navLinks').addEventListener('click', (e) => { if (e.target.tagName === 'A') setMenu(false); });
+addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('is-open')) setMenu(false); });
 const links = [...document.querySelectorAll('.nav__links a')];
 const sectionObs = new IntersectionObserver((entries) => entries.forEach((en) => {
   if (en.isIntersecting) links.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === `#${en.target.id}`));
