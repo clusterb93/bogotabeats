@@ -267,6 +267,12 @@ body::after {
   animation: marquee 60s linear infinite;
 }
 [data-theme="light"] #videos::after { -webkit-text-stroke: 0; color: color-mix(in srgb, var(--accent-3) 22%, transparent); }
+/* Rave : contour néon bien visible + léger halo */
+[data-theme="dark"] #videos::after {
+  -webkit-text-stroke: 2px color-mix(in srgb, var(--accent) 85%, transparent);
+  color: color-mix(in srgb, var(--accent) 7%, transparent);
+  filter: drop-shadow(0 0 10px rgba(255, 62, 200, .55)) drop-shadow(0 0 28px rgba(139, 92, 255, .35));
+}
 @keyframes marquee { from { translate: 0 0; } to { translate: -50% 0; } }
 #videos > .wrap, .carousel { position: relative; z-index: 1; }
 
