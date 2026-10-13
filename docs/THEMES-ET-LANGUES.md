@@ -3,7 +3,12 @@
 ## Les deux thèmes
 
 Le thème est porté par l'attribut `data-theme` de la balise `<html>` (`dark` ou `light`).
-Le visiteur bascule avec le bouton à droite du menu ; son choix est mémorisé.
+Le visiteur choisit avec le sélecteur **⚡ Rave | 🍃 Jungle** à droite du menu (les deux options visibles, l'active surlignée) ; son choix est mémorisé.
+
+- **Infobulle** au survol de chaque option (textes `theme.darkTip` / `theme.lightTip` dans `ui.json`).
+- **Bulle de découverte** « Two vibes for this site… » affichée une seule fois, 2,5 s après l'arrivée d'un nouveau visiteur sur ordinateur, fermée au bout de 9 s ou au premier clic (texte `theme.hint`).
+- Sur mobile, le sélecteur est dans le menu, sous le libellé « Choose the vibe » (`theme.label`).
+- Les icônes (éclair, feuille) sont dans `THEMES` en haut de `app.js`.
 
 | | 🌈 **Rave** — `dark` | 🌿 **Jungle** — `light` |
 |---|---|---|

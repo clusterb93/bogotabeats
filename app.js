@@ -73,17 +73,27 @@ const videos = filesOf('videos', 'video');
 const byName = (list, name) => name && list.find((f) => norm(f.name) === norm(name));
 const photo = (key, fallbackIndex) => byName(photos, forTheme(site.drive?.[key])) || photos[fallbackIndex] || photos[0];
 
+// ---------- Thèmes ----------
+const THEMES = [
+  { id: 'dark', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 2 4 14h6.5L9 22l10-12.5h-6.6L13.5 2z"/></svg>' },
+  { id: 'light', icon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.5 3.5C11 3.6 4.6 8.6 4.1 16.4c-.1 1.2 0 2.4.3 3.4-.8.6-1.5 1.2-2 1.7l1.1 1.1c.5-.6 1.2-1.2 1.9-1.8 1 .4 2.1.6 3.3.6 7.7 0 12.3-6.8 11.8-17.9zM6.7 18.4c2.6-2.6 5.9-5.3 9.6-7.7l-.8-1.2c-3.8 2.4-7.1 5.1-9.7 7.7-.1-.3-.1-.6-.1-.9.4-6.1 5.1-10.3 13.3-10.9.1 8.9-3.8 14-9.9 14-.9 0-1.7-.3-2.4-1z"/></svg>' },
+];
+
 // ---------- Rendu ----------
 function renderChrome() {
   root.lang = lang;
   document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
   $('#langs').innerHTML = LANGS.map((l) => `<button type="button" data-lang="${l}" class="${l === lang ? 'is-on' : ''}" aria-pressed="${l === lang}">${l.toUpperCase()}</button>`).join('');
   const dark = root.dataset.theme === 'dark';
-  // Le bouton annonce le thème vers lequel on bascule
-  $('#themeBtn').innerHTML = dark
-    ? `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 4 4 6 8 6-2 1-3 3-3 5 0 4-3 8-8 9 3-3 3-7 1-10-2-2-5-3-8-2 2-4 6-7 10-8z"/></svg>${t('theme.light')}`
-    : `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>${t('theme.dark')}`;
-  $('#themeBtn').setAttribute('aria-label', t('theme.switch'));
+  // Sélecteur de thème : les deux options visibles, l'active surlignée, une bulle d'aide au survol
+  $('#themes').setAttribute('aria-label', t('theme.label'));
+  $('.themes-wrap').dataset.label = t('theme.label');
+  $('#themes').innerHTML = THEMES.map((th) => {
+    const on = root.dataset.theme === th.id;
+    return `<button type="button" role="radio" aria-checked="${on}" class="${on ? 'is-on' : ''}" data-theme-set="${th.id}" data-tip="${esc(t(`theme.${th.id}Tip`))}">
+      ${th.icon}<span>${esc(t(`theme.${th.id}`))}</span></button>`;
+  }).join('');
+  $('#themeHintText').textContent = t('theme.hint');
   $('meta[name="theme-color"]').content = dark ? '#07050b' : '#f4e8d4';
 }
 
@@ -367,12 +377,29 @@ document.addEventListener('click', (e) => {
   if (lg) { lang = lg.dataset.lang; store.set('lang', lang); renderAll(); }
 });
 
-$('#themeBtn').addEventListener('click', () => {
-  root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+$('#themes').addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-theme-set]');
+  if (!btn) return;
+  hideThemeHint();
+  if (btn.dataset.themeSet === root.dataset.theme) return;
+  root.dataset.theme = btn.dataset.themeSet;
   store.set('theme', root.dataset.theme);
   renderChrome();
   renderBrand();
 });
+
+// Bulle « 2 ambiances » affichée une seule fois par visiteur (ordinateur uniquement : sur mobile le sélecteur est dans le menu)
+function hideThemeHint() {
+  $('#themeHint').hidden = true;
+  store.set('themeHintSeen', '1');
+}
+$('#themeHintClose').addEventListener('click', hideThemeHint);
+if (!store.get('themeHintSeen') && !store.get('theme') && matchMedia('(min-width: 961px)').matches) {
+  setTimeout(() => {
+    $('#themeHint').hidden = false;
+    setTimeout(hideThemeHint, 9000);
+  }, 2500);
+}
 $('#morePast').addEventListener('click', () => { showAllPast = true; renderDates(); observeReveal(); });
 
 // Lightbox

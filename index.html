@@ -48,7 +48,13 @@
     <a href="#contact" data-i18n="nav.contact">Contact</a>
     <div class="nav__tools">
       <div class="langs" id="langs" role="group" aria-label="Language"></div>
-      <button class="theme-btn" id="themeBtn" type="button"></button>
+      <div class="themes-wrap">
+        <div class="themes" id="themes" role="radiogroup"></div>
+        <div class="theme-hint" id="themeHint" hidden>
+          <span id="themeHintText"></span>
+          <button type="button" id="themeHintClose" aria-label="Close">×</button>
+        </div>
+      </div>
     </div>
   </nav>
 </header>

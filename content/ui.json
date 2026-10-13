@@ -38,12 +38,15 @@
     "footer.sync": "Content synced from Drive on",
     "theme.dark": "Rave",
     "theme.light": "Jungle",
-    "theme.switch": "Switch theme",
     "type.club": "Club",
     "type.festival": "Festival",
     "type.radio": "Radio",
     "type.private": "Private",
-    "type.live": "Live"
+    "type.live": "Live",
+    "theme.label": "Choose the vibe",
+    "theme.darkTip": "Rave vibe — neon, after-party, queer club",
+    "theme.lightTip": "Jungle vibe — forest, earth & tropical heat",
+    "theme.hint": "Two vibes for this site: switch between Rave and Jungle"
   },
   "fr": {
     "nav.home": "Accueil",
@@ -84,12 +87,15 @@
     "footer.sync": "Contenus synchronisés depuis le Drive le",
     "theme.dark": "Rave",
     "theme.light": "Jungle",
-    "theme.switch": "Changer de thème",
     "type.club": "Club",
     "type.festival": "Festival",
     "type.radio": "Radio",
     "type.private": "Privé",
-    "type.live": "Live"
+    "type.live": "Live",
+    "theme.label": "Choisir l'ambiance",
+    "theme.darkTip": "Ambiance Rave — néon, after, club queer",
+    "theme.lightTip": "Ambiance Jungle — forêt, terre & chaleur tropicale",
+    "theme.hint": "Deux ambiances pour ce site : passe de Rave à Jungle"
   },
   "es": {
     "nav.home": "Inicio",
@@ -130,11 +136,14 @@
     "footer.sync": "Contenido sincronizado desde Drive el",
     "theme.dark": "Rave",
     "theme.light": "Jungla",
-    "theme.switch": "Cambiar tema",
     "type.club": "Club",
     "type.festival": "Festival",
     "type.radio": "Radio",
     "type.private": "Privado",
-    "type.live": "Live"
+    "type.live": "Live",
+    "theme.label": "Elige el ambiente",
+    "theme.darkTip": "Ambiente Rave — neón, after, club queer",
+    "theme.lightTip": "Ambiente Jungla — selva, tierra y calor tropical",
+    "theme.hint": "Dos ambientes para este sitio: cambia entre Rave y Jungla"
   }
 }
