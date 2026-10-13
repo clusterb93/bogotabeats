@@ -23,5 +23,5 @@ Site + EPK du DJ **BogotaBeats**. Statique, sans dépendance ni framework (le «
 npm run sync    # Drive → content/drive.json (+ Sheets Dates/Sets)
 npm run check   # validation du contenu
 npm run dev     # http://localhost:8080
-npm run build   # dist/ = fichiers publiés (déployés sur IONOS par GitHub Actions)
+npm run build   # dist/ = ce qui est publié sur bogotabeats.com par GitHub Actions
 ```

@@ -12,7 +12,7 @@ Le workflow `.github/workflows/sync-drive.yml` tourne **tous les jours à 6 h UT
 build ─► sync Drive + Google Sheets ─► check ─► commit des changements ─► build (dist/)
   │
   ├─► deploy-ionos  : envoi SFTP sur IONOS → https://bogotabeats.com      (si les secrets IONOS_* existent)
-  └─► deploy-pages  : GitHub Pages → https://clusterb93.github.io/bogotabeats/   (sinon)
+  └─► deploy-pages  : GitHub Pages → https://bogotabeats.com             (sinon — configuration actuelle)
 ```
 
 - `scripts/build.mjs` ne met dans `dist/` que les fichiers publics : `index.html`, `styles.css`,
@@ -23,9 +23,27 @@ build ─► sync Drive + Google Sheets ─► check ─► commit des changemen
 - 👉 **Ajouter une photo ou une date dans le Drive suffit** : le site se met à jour le lendemain
   matin, ou tout de suite avec *Run workflow*.
 
-## Hébergement IONOS + bogotabeats.com (configuration actuelle)
+## Configuration actuelle : GitHub Pages + domaine IONOS ✅
 
-À faire une seule fois. Les intitulés exacts du panneau IONOS peuvent varier légèrement.
+Le site est **hébergé par GitHub Pages** ; le domaine `bogotabeats.com` est géré chez **IONOS** et pointe vers GitHub.
+Rien à refaire, c'est pour mémoire :
+
+| Où | Réglage |
+|---|---|
+| IONOS → Domaines & SSL → `bogotabeats.com` → DNS | 4 enregistrements `A` sur `@` : `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` · `CNAME` `www` → `clusterb93.github.io` · **aucun** `AAAA` sur `@` · le `TXT` `_github-pages-challenge-clusterb93` (vérification du domaine, à garder) |
+| GitHub → compte → Settings → Pages | Domaine `bogotabeats.com` vérifié |
+| GitHub → dépôt → Settings → Pages | Source : GitHub Actions · Custom domain : `bogotabeats.com` · **Enforce HTTPS** coché |
+
+- Les enregistrements `MX`, `SPF`, `DKIM`, `_dmarc` et `autodiscover` d'IONOS servent aux **e-mails** du domaine : ne pas les supprimer.
+- `www.bogotabeats.com` et l'ancienne adresse `clusterb93.github.io/bogotabeats` redirigent vers `https://bogotabeats.com`.
+- `public/.htaccess` n'est pas utilisé par GitHub Pages (il ne sert que pour l'option IONOS ci-dessous).
+
+## Option : héberger sur l'espace web IONOS (SFTP)
+
+Seulement si ton pack IONOS comprend un **espace web** (pack « Hébergement web »). Quand les secrets
+ci-dessous existent, le workflow publie sur IONOS au lieu de GitHub Pages ; il faut alors aussi faire
+pointer le domaine vers l'espace web IONOS au lieu de GitHub. À faire une seule fois ; les intitulés
+exacts du panneau IONOS peuvent varier légèrement.
 
 ### 1. IONOS — relier le domaine à un dossier de l'espace web
 
