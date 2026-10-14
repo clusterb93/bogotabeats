@@ -643,6 +643,95 @@ function countUp(instant = false) {
   });
 }
 
+// ---------- Mesure d'audience : Google Analytics 4, uniquement après consentement ----------
+// Actif seulement si site.json → analytics.ga4 contient un identifiant « G-XXXXXXX ».
+// Rien n'est chargé (ni script Google, ni cookie) tant que le visiteur n'a pas cliqué sur « Accepter ».
+// En local (localhost) on ne pollue pas les stats : les événements sont seulement affichés dans la console.
+const GA_ID = /^G-[A-Z0-9]+$/.test(site.analytics?.ga4 || '') ? site.analytics.ga4 : null;
+const GA_LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+const CONSENT_KEY = 'analyticsConsent';
+let gaOn = false;
+
+function startAnalytics() {
+  if (gaOn || !GA_ID) return;
+  gaOn = true;
+  if (GA_LOCAL) { console.info(`[analytics] ${GA_ID} — mode local, rien n'est envoyé à Google`); return; }
+  window[`ga-disable-${GA_ID}`] = false;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() { window.dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('set', 'user_properties', { site_language: lang, site_theme: root.dataset.theme === 'light' ? 'jungle' : 'rave' });
+  gtag('config', GA_ID, { allow_google_signals: false, allow_ad_personalization_signals: false });
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+  document.head.append(s);
+}
+
+function stopAnalytics() {
+  if (!GA_ID) return;
+  gaOn = false;
+  window[`ga-disable-${GA_ID}`] = true;
+  // Supprime les cookies _ga déjà posés (sur le domaine et ses parents, ex. .bogotabeats.com)
+  const parts = location.hostname.split('.');
+  const domains = ['', ...parts.map((_, i) => `; domain=.${parts.slice(i).join('.')}`)];
+  document.cookie.split(';').map((c) => c.split('=')[0].trim()).filter((n) => n.startsWith('_ga'))
+    .forEach((n) => domains.forEach((d) => { document.cookie = `${n}=; Max-Age=0; path=/${d}`; }));
+}
+
+function track(name, params = {}) {
+  if (!gaOn) return;
+  if (GA_LOCAL) console.info('[analytics]', name, params);
+  else window.gtag('event', name, params);
+}
+
+function setConsent(value) {
+  store.set(CONSENT_KEY, value);
+  $('#consent').hidden = true;
+  if (value === 'granted') startAnalytics(); else stopAnalytics();
+}
+
+if (GA_ID) {
+  $('#consentManage').hidden = false;
+  $('#consentManage').onclick = () => { $('#consent').hidden = false; };
+  $('#consent').addEventListener('click', (e) => { const b = e.target.closest('[data-consent]'); if (b) setConsent(b.dataset.consent); });
+  const choice = store.get(CONSENT_KEY);
+  if (choice === 'granted') startAnalytics();
+  else if (choice !== 'denied') $('#consent').hidden = false;
+}
+
+// Ce que font les visiteurs : un seul écouteur (phase de capture, avant que les autres gestionnaires modifient le DOM)
+document.addEventListener('click', (e) => {
+  if (!gaOn) return;
+  const el = e.target;
+  const at = (s) => el.closest(s);
+  let x;
+  if ((x = at('[data-yt]'))) return track('play_set', { set_title: x.getAttribute('aria-label') || x.dataset.yt });
+  if ((x = at('[data-mix]'))) return track('play_mix', { mix_title: cleanTitle(mix.list[+x.dataset.mix]?.title || '') });
+  if (at('#vinyl')) return track('play_mix', { mix_title: cleanTitle(mix.list[mix.index]?.title || '') });
+  if ((x = at('[data-drive]'))) return track('play_video', { video_id: x.dataset.drive });
+  if ((x = at('[data-vid]'))) return track('play_video', { video_id: carousel.list[+x.dataset.vid]?.id || x.dataset.vid });
+  if ((x = at('[data-lb]'))) return track('view_photo', { gallery: x.dataset.lb });
+  if (at('#lbDl')) return track('download', { file_type: 'photo_hd', file_name: lbList[lbIndex]?.name || '' });
+  if ((x = at('a.dl'))) return track('download', { file_type: x.querySelector('.dl__kind')?.textContent || 'doc', file_name: x.querySelector('.dl__name')?.textContent || '' });
+  if ((x = at('a[download]'))) return track('add_to_calendar', { file_name: x.getAttribute('download') });
+  if (at('#mailLink')) return track('contact', { method: 'email' });
+  if (at('#phoneLink')) return track('contact', { method: 'phone' });
+  if ((x = at('#socials a'))) return track('social_click', { network: x.textContent });
+  if ((x = at('[data-lang]'))) return track('change_language', { language: x.dataset.lang });
+  if ((x = at('[data-theme-set]')) && x.dataset.themeSet !== root.dataset.theme) return track('change_theme', { theme: x.dataset.themeSet === 'light' ? 'jungle' : 'rave' });
+  if ((x = at('a[href="#contact"]'))) return track('booking_cta', { location: x.closest('section, header')?.id || '' });
+}, true);
+
+// Sections vraiment regardées (une fois par visite et par section ; même ligne de repère que le lien actif du menu)
+const seenSections = new Set();
+const viewObs = new IntersectionObserver((entries) => entries.forEach((en) => {
+  if (!en.isIntersecting || !gaOn || seenSections.has(en.target.id)) return;
+  seenSections.add(en.target.id);
+  track('section_view', { section: en.target.id });
+}), { rootMargin: '-45% 0px -50% 0px' });
+document.querySelectorAll('main > section[id]').forEach((s) => viewObs.observe(s));
+
 renderAll();
 new IntersectionObserver((entries, obs) => {
   if (entries.some((e) => e.isIntersecting)) { countUp(); obs.disconnect(); }

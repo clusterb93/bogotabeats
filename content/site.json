@@ -46,6 +46,9 @@
     "phone": "+33 7 60 25 95 50",
     "phoneIntl": "+33760259550"
   },
+  "analytics": {
+    "ga4": "G-4BL2SFDGLY"
+  },
   "socials": [
     {
       "name": "Instagram",

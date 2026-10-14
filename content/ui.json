@@ -61,7 +61,11 @@
     "dates.map": "Directions",
     "type.openair": "Open air",
     "dl.logos": "Logos",
-    "dl.logosName": "BogotaBeats logos — {n} PNG files (white, colour…)"
+    "dl.logosName": "BogotaBeats logos — {n} PNG files (white, colour…)",
+    "consent.text": "This site uses Google Analytics to count visits and see which content people enjoy. No ads, no resale.",
+    "consent.accept": "Accept",
+    "consent.refuse": "Refuse",
+    "consent.manage": "Cookies"
   },
   "fr": {
     "nav.home": "Accueil",
@@ -125,7 +129,11 @@
     "dates.map": "Itinéraire",
     "type.openair": "Plein air",
     "dl.logos": "Logos",
-    "dl.logosName": "Logos BogotaBeats — {n} fichiers PNG (blanc, couleur…)"
+    "dl.logosName": "Logos BogotaBeats — {n} fichiers PNG (blanc, couleur…)",
+    "consent.text": "Ce site utilise Google Analytics pour compter les visites et savoir quels contenus plaisent. Pas de pub, pas de revente.",
+    "consent.accept": "Accepter",
+    "consent.refuse": "Refuser",
+    "consent.manage": "Cookies"
   },
   "es": {
     "nav.home": "Inicio",
@@ -189,6 +197,10 @@
     "dates.map": "Cómo llegar",
     "type.openair": "Al aire libre",
     "dl.logos": "Logos",
-    "dl.logosName": "Logos BogotaBeats — {n} archivos PNG (blanco, color…)"
+    "dl.logosName": "Logos BogotaBeats — {n} archivos PNG (blanco, color…)",
+    "consent.text": "Este sitio usa Google Analytics para contar las visitas y saber qué contenidos gustan. Sin publicidad ni reventa.",
+    "consent.accept": "Aceptar",
+    "consent.refuse": "Rechazar",
+    "consent.manage": "Cookies"
   }
 }

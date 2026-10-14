@@ -242,7 +242,17 @@
   <div class="tricolor"></div>
   <p>BogotaBeats © <span id="year"></span> · <span data-i18n="footer.base"></span></p>
   <p class="footer__sync" id="syncInfo"></p>
+  <p class="footer__sync"><button type="button" class="footer__consent" id="consentManage" data-i18n="consent.manage" hidden>Cookies</button></p>
 </footer>
+
+<!-- Bandeau de consentement Google Analytics (affiché seulement si site.json → analytics.ga4 est rempli) -->
+<div class="consent" id="consent" role="dialog" aria-live="polite" aria-labelledby="consentText" hidden>
+  <p id="consentText" data-i18n="consent.text"></p>
+  <div class="consent__actions">
+    <button type="button" class="btn btn--ghost btn--sm" data-consent="denied" data-i18n="consent.refuse">Refuse</button>
+    <button type="button" class="btn btn--accent btn--sm" data-consent="granted" data-i18n="consent.accept">Accept</button>
+  </div>
+</div>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox" hidden>

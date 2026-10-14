@@ -206,3 +206,41 @@ Si une traduction manque, le site affiche la version anglaise.
 - Aller directement à l'EPK : `https://ton-site/#epk` (ex. `https://ton-site/?lang=fr#epk`).
 
 Le choix de langue/thème du visiteur est mémorisé dans son navigateur.
+
+---
+
+## 6. Statistiques de visite (Google Analytics) 📊
+
+**Activer** : crée une propriété GA4 sur <https://analytics.google.com> (flux « Web » pour
+`https://bogotabeats.com`), copie l'**ID de mesure** (`G-XXXXXXXXXX`) et colle-le dans
+`content/site.json` :
+
+```json
+"analytics": { "ga4": "G-XXXXXXXXXX" }
+```
+
+Vide (`""`) = statistiques désactivées, pas de bandeau.
+
+**Consentement (RGPD / CNIL)** : rien n'est chargé tant que le visiteur n'a pas cliqué sur
+« Accepter » dans le bandeau. Il peut changer d'avis via le lien « Cookies » en bas de page
+(un refus supprime les cookies `_ga`). Signaux Google et pub personnalisée sont désactivés.
+En local (`npm run dev`), rien n'est envoyé : les événements s'affichent dans la console du navigateur.
+
+**Ce qui est mesuré**, en plus des visites, pays, appareils et sources (Instagram, Google…) :
+
+| Événement GA4 | Quand | Détail |
+|---|---|---|
+| `section_view` | une section passe à l'écran (1 fois par visite) | `section` : mixes, sets, dates, videos, epk, contact… |
+| `play_set` / `play_mix` / `play_video` | lecture d'un set YouTube, d'un mix, d'une vidéo | titre ou ID |
+| `view_photo` | ouverture d'une photo en grand | `gallery` |
+| `download` | press kit, fiche technique, logos, photo HD | `file_type`, `file_name` |
+| `add_to_calendar` | téléchargement d'une date (.ics) | `file_name` |
+| `contact` | clic sur l'e-mail ou le téléphone | `method` : email / phone |
+| `booking_cta` | clic sur un bouton « Book » | `location` |
+| `social_click` | clic sur un réseau social | `network` |
+| `change_language` / `change_theme` | changement de langue / d'ambiance | `language`, `theme` (rave / jungle) |
+
+Les clics vers d'autres sites (billetterie, etc.) sont comptés automatiquement par GA4
+(« Mesures améliorées », activées par défaut). Pour voir les paramètres (`section`, `file_name`…)
+dans les rapports : Admin → **Définitions personnalisées** → créer une dimension pour chacun.
+`contact` et `download` peuvent être marqués comme **événements clés** (Admin → Événements).

@@ -489,6 +489,15 @@ body::after {
 .tricolor { height: 8px; background: var(--bar); margin: 0 -24px 30px; }
 .footer p { margin: 4px 0; }
 .footer__sync { opacity: .6; font-size: .72rem; }
+.footer__consent { background: none; border: 0; padding: 0; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }
+.footer__consent[hidden] { display: none; }
+
+/* Bandeau de consentement (Google Analytics) */
+.consent { position: fixed; z-index: 95; left: 16px; right: 16px; bottom: 16px; max-width: 540px; margin: 0 auto; padding: 16px 18px; background: var(--card); color: var(--text); border: 1px solid var(--line); box-shadow: var(--btn-glow); font-size: .86rem; line-height: 1.45; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; animation: hint-in .4s ease-out; }
+[data-theme="light"] .consent { border-radius: 12px; }
+.consent[hidden] { display: none; }
+.consent p { margin: 0; flex: 1 1 260px; }
+.consent__actions { display: flex; gap: 10px; margin-left: auto; }
 
 /* LIGHTBOX (toujours sombre) */
 .lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(5, 3, 8, .96); display: grid; place-items: center; padding: 60px 70px; color: #fff; }

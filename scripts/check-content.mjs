@@ -58,6 +58,9 @@ if (site && drive) {
       if (!names.has(String(name).toLowerCase())) warnings.push(`site.json drive.${key}${theme ? `.${theme}` : ''} : "${name}" introuvable dans le Drive (renommé ? supprimé ?) → un autre fichier sera utilisé`);
     }
   }
+  const ga = site.analytics?.ga4;
+  if (ga && !/^G-[A-Z0-9]+$/.test(ga)) errors.push(`site.json analytics.ga4 : "${ga}" n'est pas un identifiant GA4 (format G-XXXXXXXXXX)`);
+  console.log(ga ? `• Google Analytics : ${ga}` : '• Google Analytics : désactivé (analytics.ga4 vide)');
   for (const l of site.languages || []) {
     for (const key of ['bio', 'music', 'inspirations']) {
       if (site[key] && typeof site[key] === 'object' && !site[key][l]) warnings.push(`site.json ${key} : pas de traduction "${l}" (l'anglais sera affiché)`);
