@@ -5,7 +5,7 @@ Site + EPK du DJ **BogotaBeats**. Statique, sans dépendance ni framework (le «
 ## Règles
 
 - **Contenu ≠ code.** Une demande de contenu (date, set, bio, photo) se traite dans `content/*.json`
-  ou dans le Drive, jamais en dur dans `index.html` / `app.js`.
+  ou dans le Drive, jamais en dur dans `index.html` / `engine/`.
 - `content/drive.json` est **généré** par `npm run sync` : ne pas l'éditer à la main.
 - Toute nouvelle chaîne d'interface va dans `content/ui.json` **pour les 3 langues** (en, fr, es).
   Tout texte de contenu dans `site.json` suit le format `{ "en", "fr", "es" }`.

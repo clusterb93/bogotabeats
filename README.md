@@ -43,9 +43,9 @@ Le site est hébergé par **GitHub Pages** ; le nom de domaine `bogotabeats.com`
 | Dossier / fichier | À quoi ça sert | Tu y touches ? |
 |---|---|---|
 | **`content/`** | **Tout le contenu éditable du site** (voir détail ci-dessous) | ✅ **Oui — c'est ici que tout se passe** |
-| `index.html` | Squelette de la page : l'ordre des sections (Home, Mixes, Sessions, Tour, Videos, EPK, Contact) | ❌ Seulement pour ajouter une section |
+| `index.html` | Coquille de la page : titre et aperçu de partage (SEO), menu, pied de page. Les sections sont construites par le moteur | ❌ Seulement pour le titre / l'aperçu de partage |
 | `styles.css` | Apparence et les 2 thèmes ; les couleurs sont des variables en haut du fichier | ❌ Seulement pour changer le design |
-| `app.js` | Le « moteur » : lit `content/` et le Drive, construit la page, gère lecteurs, carrousels, langues, thèmes | ❌ Non |
+| `engine/` | Le « moteur », générique (rien de propre à BogotaBeats) : lit `content/` et le Drive, construit les sections choisies dans `site.json`, gère lecteurs, carrousels, langues, thèmes. Un fichier par type de section dans `engine/sections/` | ❌ Non |
 | `public/` | Fichiers techniques mis à la racine du site : `.htaccess` (pour un hébergement Apache/IONOS), `robots.txt` | ❌ Non |
 | `scripts/` | Outils en ligne de commande : synchro Drive, vérification, build, serveur local | ❌ Non (on les lance) |
 | `templates/` | Modèles CSV à importer dans Google Sheets (feuilles « Dates » / « Sets ») | Optionnel |
@@ -58,7 +58,7 @@ Le site est hébergé par **GitHub Pages** ; le nom de domaine `bogotabeats.com`
 
 | Fichier | Contenu | Section du site |
 |---|---|---|
-| `site.json` | Bio, tagline, stats, genres, inspirations, rider, contact, réseaux, lien SoundCloud, choix des photos mises en avant, langue et thème par défaut, fichiers Drive masqués | Accueil, EPK, Contact |
+| `site.json` | Bio, tagline, stats, genres, inspirations, rider, contact, réseaux, lien SoundCloud, choix des photos mises en avant, langue et thème par défaut, fichiers Drive masqués, **sections affichées et leur ordre** (`sections`) | Tout le site |
 | `dates.json` | Toutes les dates (passées et à venir) | Tour |
 | `sets.json` | Les vidéos YouTube de DJ sets | Live sessions |
 | `mixes.json` | Les mixes SoundCloud mis en avant | Mixes (platine vinyle) |
@@ -180,6 +180,12 @@ titrée avec son nom (images en galerie, vidéos, documents en cartes de téléc
 
 Tout est dans `content/site.json`. Chaque texte existe en `en` / `fr` / `es` (si une traduction manque,
 l'anglais s'affiche). Les **stats** : `value` (nombre) + `suffix` (`+`, `k`) + `label`.
+
+### 🧩 Réordonner, masquer ou renommer une section
+
+`content/site.json → sections` : une ligne par section, dans l'ordre d'affichage. Retirer une ligne masque
+la section (et son lien de menu) ; `"nav": false` garde la section sans lien de menu ; `"blocks"` de l'EPK
+choisit et ordonne ses rubriques. Détail des types et options : [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ### 🔤 Corriger un texte de l'interface
 

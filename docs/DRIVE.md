@@ -10,7 +10,7 @@ Google Drive (partagé "Tous les utilisateurs disposant du lien")
         │  npm run sync  (scripts/sync-drive.mjs — sans clé API)
         ▼
 content/drive.json   ← liste des dossiers/fichiers + leurs identifiants
-        │  chargé par app.js dans le navigateur
+        │  chargé par engine/ dans le navigateur
         ▼
 Images / vidéos / documents servis directement par Google
 ```

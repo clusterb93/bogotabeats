@@ -83,13 +83,7 @@
   <a href="#home" class="nav__logo" aria-label="BogotaBeats — home"><img id="navLogo" alt="BogotaBeats"></a>
   <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   <nav class="nav__links" id="navLinks">
-    <a href="#home" data-i18n="nav.home">Home</a>
-    <a href="#mixes" data-i18n="nav.mixes">Mixes</a>
-    <a href="#sets" data-i18n="nav.sets">Sessions</a>
-    <a href="#dates" data-i18n="nav.dates">Tour</a>
-    <a href="#videos" data-i18n="nav.videos">Videos</a>
-    <a href="#epk" data-i18n="nav.epk">EPK</a>
-    <a href="#contact" data-i18n="nav.contact">Contact</a>
+    <!-- Liens du menu : générés par le moteur depuis site.json → sections -->
     <div class="nav__tools">
       <div class="langs" id="langs" role="group" aria-label="Language"></div>
       <div class="themes-wrap">
@@ -103,140 +97,8 @@
   </nav>
 </header>
 
-<main>
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <picture class="hero__bg" id="heroPic"></picture>
-    <div class="hero__shade"></div>
-    <div class="hero__content">
-      <h1 style="margin:0"><img class="hero__logo" id="heroLogo" alt="BogotaBeats"></h1>
-      <p class="hero__tag" id="tagline"></p>
-      <div class="hero__cta">
-        <a class="btn btn--accent" href="#contact" data-i18n="cta.book">Book now</a>
-        <a class="btn btn--ghost" id="listenBtn" href="#sets" target="_blank" rel="noopener" data-i18n="cta.listen">Listen to a set</a>
-      </div>
-    </div>
-    <a class="hero__scroll" href="#sets" aria-label="Scroll">↓</a>
-  </section>
-
-  <!-- SETS -->
-  <!-- MIXES (SoundCloud) : platine + tracklist -->
-  <section class="section mixes" id="mixes">
-    <div class="leaf leaf--tr" aria-hidden="true"><svg class="leaf__a" viewBox="0 0 200 230"><use href="#monstera"/></svg><svg class="leaf__b" viewBox="0 0 200 230"><use href="#monstera"/></svg></div>
-    <div class="wrap">
-      <h2 class="h2" data-i18n="mixes.title">Mixes</h2>
-      <p class="section__sub" data-i18n="mixes.sub"></p>
-      <div class="deck" id="deck">
-        <div class="deck__player">
-          <div class="turntable">
-            <div class="vinyl" id="vinyl"><div class="vinyl__label" id="vinylLabel"></div></div>
-            <div class="tonearm" aria-hidden="true"></div>
-          </div>
-          <div class="deck__now">
-            <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-            <div><p class="deck__title" id="deckTitle"></p><p class="deck__where" id="deckWhere"></p></div>
-          </div>
-          <div class="deck__widget" id="deckWidget"></div>
-        </div>
-        <ol class="tracklist" id="tracklist"></ol>
-      </div>
-      <a class="btn btn--ghost btn--sm mixes__all" id="allMixes" target="_blank" rel="noopener" data-i18n="mixes.more"></a>
-    </div>
-  </section>
-
-  <!-- LIVE SESSIONS (YouTube) -->
-  <section class="section section--alt" id="sets">
-    <div class="wrap">
-      <h2 class="h2" data-i18n="sets.title">Live sessions</h2>
-      <p class="section__sub" data-i18n="sets.sub"></p>
-      <div class="sets" id="setsGrid"></div>
-    </div>
-  </section>
-
-  <!-- DATES -->
-  <section class="section section--alt" id="dates">
-    <div class="wrap">
-      <h2 class="h2" data-i18n="dates.title">Tour dates</h2>
-      <div id="upcoming"></div>
-      <h3 class="h3" data-i18n="dates.past">Past gigs</h3>
-      <ol class="gigs gigs--past" id="past"></ol>
-      <button class="btn btn--ghost btn--sm" id="morePast" hidden data-i18n="dates.more">See all dates</button>
-    </div>
-  </section>
-
-  <!-- VIDEOS (Drive) -->
-  <section class="section" id="videos">
-    <div class="leaf leaf--bl" aria-hidden="true"><svg class="leaf__a" viewBox="0 0 200 230"><use href="#monstera"/></svg><svg class="leaf__b" viewBox="0 0 200 230"><use href="#monstera"/></svg></div>
-    <div class="wrap">
-      <div class="carousel__head">
-        <h2 class="h2" data-i18n="videos.title">Videos</h2>
-        <div class="carousel__ctrl">
-          <span class="carousel__count" id="vidCount" aria-live="polite"></span>
-          <button class="carousel__arrow" id="vidPrev" type="button" aria-label="Previous">←</button>
-          <button class="carousel__arrow" id="vidNext" type="button" aria-label="Next">→</button>
-        </div>
-      </div>
-    </div>
-    <div class="carousel" id="videoCarousel" tabindex="0" aria-roledescription="carousel" aria-label="Videos">
-      <div class="carousel__track" id="vidTrack"></div>
-    </div>
-    <div class="wrap">
-      <div class="carousel__progress"><span id="vidBar"></span></div>
-    </div>
-  </section>
-
-  <!-- EPK -->
-  <section class="section epk section--alt" id="epk">
-    <div class="leaf leaf--tr" aria-hidden="true"><svg class="leaf__a" viewBox="0 0 200 230"><use href="#monstera"/></svg><svg class="leaf__b" viewBox="0 0 200 230"><use href="#monstera"/></svg></div>
-    <div class="wrap">
-      <h2 class="epk__title">- EPK -</h2>
-      <p class="epk__lead" data-i18n="epk.lead"></p>
-
-      <div class="stats" id="stats"></div>
-
-      <div class="epk__grid">
-        <article>
-          <h3 class="h2" data-i18n="epk.bio">Bio</h3>
-          <div id="bio" class="prose"></div>
-        </article>
-        <figure class="epk__portrait" id="aboutPhoto"></figure>
-      </div>
-
-      <h3 class="h2" data-i18n="epk.sound">Musical universe</h3>
-      <p class="prose" id="music"></p>
-      <ul class="chips" id="genres"></ul>
-
-      <h3 class="h2" data-i18n="epk.inspirations">Inspirations</h3>
-      <p class="prose" id="inspirations"></p>
-      <ul class="chips chips--outline" id="influences"></ul>
-
-      <h3 class="h2" data-i18n="epk.photos">Press photos</h3>
-      <p class="hint" data-i18n="epk.photosHint"></p>
-      <div class="gallery" id="gallery"></div>
-      <div class="rail-count"></div>
-
-      <div id="extraFolders"></div>
-
-      <h3 class="h2" data-i18n="epk.downloads">Downloads</h3>
-      <div class="downloads" id="downloads"></div>
-
-      <h3 class="h2" data-i18n="epk.setup">Tech / Rider</h3>
-      <ul class="setup" id="setup"></ul>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="contact" id="contact">
-    <div class="contact__bg" id="contactBg"></div>
-    <div class="wrap contact__inner">
-      <h2 class="h2" data-i18n="contact.title">Booking & contact</h2>
-      <p class="contact__lead" data-i18n="contact.lead"></p>
-      <a class="contact__mail" id="mailLink"></a>
-      <a class="contact__phone" id="phoneLink"></a>
-      <div class="socials" id="socials"></div>
-    </div>
-  </section>
-</main>
+<!-- Sections : construites par le moteur (engine/) selon site.json → sections -->
+<main></main>
 
 <footer class="footer">
   <div class="tricolor"></div>
@@ -263,6 +125,6 @@
   <a class="btn btn--accent btn--sm lightbox__dl" id="lbDl" target="_blank" rel="noopener" data-i18n="epk.dlHd">Download HD</a>
 </div>
 
-<script src="app.js" type="module"></script>
+<script src="engine/app.js" type="module"></script>
 </body>
 </html>

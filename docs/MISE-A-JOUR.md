@@ -1,7 +1,7 @@
 # Mettre à jour le site
 
 Tout le contenu se trouve dans **`content/`** et dans le **Google Drive « PackPresse »**.
-On ne touche jamais au code (`index.html`, `app.js`, `styles.css`) pour mettre à jour du contenu.
+On ne touche jamais au code (`index.html`, `engine/`, `styles.css`) pour mettre à jour du contenu.
 
 > **Après chaque modification :** `npm run check` (vérifie qu'il n'y a pas d'erreur),
 > puis publier (voir [DEPLOIEMENT.md](DEPLOIEMENT.md)). Si la synchro automatique est en place,

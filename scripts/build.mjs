@@ -6,7 +6,7 @@ import path from 'node:path';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
-const PUBLIC = ['index.html', 'styles.css', 'app.js', 'content', 'public'];
+const PUBLIC = ['index.html', 'styles.css', 'engine', 'content', 'public'];
 const SITE_URL = 'https://bogotabeats.com/';
 
 await rm(dist, { recursive: true, force: true });

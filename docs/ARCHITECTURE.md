@@ -3,54 +3,124 @@
 Choix de départ : **zéro dépendance, zéro build**. Du HTML/CSS/JS natif, lisible et modifiable
 sans outillage. Node.js ne sert qu'aux scripts (synchro, vérification, serveur local).
 
+## Moteur et contenu
+
+Le site est séparé en deux :
+
+- **Le moteur** (`engine/`) : le code générique, sans rien de propre à BogotaBeats. Il sait afficher
+  des *types* de sections (accueil, mixes, dates…) à partir des données.
+- **L'instance** (ce qui est propre à l'artiste) : `content/` (textes, liens, choix des sections),
+  `index.html` (balises SEO/partage, décor SVG), `styles.css` (thèmes), `public/` et le Drive.
+
+L'objectif : réutiliser le même moteur pour d'autres artistes en ne changeant que l'instance.
+
 ## Flux de données
 
 ```
-content/site.json  ─┐
+content/site.json  ─┐   (dont "sections" : quelles sections, dans quel ordre)
 content/ui.json    ─┤
-content/sets.json  ─┼──► app.js (navigateur) ──► DOM de index.html
+content/sets.json  ─┼──► engine/app.js ──► sections construites dans <main> de index.html
 content/dates.json ─┤
+content/mixes.json ─┤
 content/drive.json ─┘ ◄── scripts/sync-drive.mjs ◄── Google Drive + Google Sheets
 ```
 
 ## `index.html`
 
-Squelette statique : chaque section a un `id` (`home`, `sets`, `dates`, `videos`, `epk`,
-`contact`) et des conteneurs vides (`#setsGrid`, `#past`, `#gallery`…) que `app.js` remplit.
+Coquille de la page : balises `<head>` (titre, description, Open Graph), symbole SVG des feuilles,
+menu (sans liens : ils sont générés), `<main>` **vide**, pied de page, bandeau de consentement, lightbox.
 Les éléments avec `data-i18n="clé"` reçoivent le texte de `ui.json`.
 Un petit script inline applique le thème avant l'affichage (anti-flash).
 
-## `app.js` (module ES)
+## Les sections : `site.json → sections`
 
-| Bloc | Rôle |
+```json
+"sections": [
+  { "type": "hero", "next": "sets" },
+  { "type": "mixes", "decor": "leaf-tr" },
+  { "type": "sessions", "alt": true },
+  { "type": "tour", "alt": true },
+  { "type": "videos", "decor": "leaf-bl" },
+  { "type": "epk", "alt": true, "decor": "leaf-tr", "blocks": ["stats", "bio", "sound", "inspirations", "photos", "extra", "downloads", "setup"] },
+  { "type": "contact" }
+]
+```
+
+| Option | Rôle |
 |---|---|
-| `drive.*` | Fabrique les URLs Google (image redimensionnée, miniature, téléchargement, lecteur, export PDF) |
-| Chargement | `Promise.all` sur les 5 JSON ; chaque fichier a une valeur de repli si absent |
-| `t(clé)` / `tr(valeur)` | Traductions : interface (`ui.json`) / champs de contenu multilingues |
-| `forTheme(valeur)` | Choisit la variante `{dark, light}` d'un réglage selon le thème courant |
-| `ROLES` | Règles nom-de-dossier → rôle (photos / logos / vidéos / autre) |
-| `render*()` | Une fonction par section ; `renderAll()` relance tout (changement de langue) |
-| Interactions | Délégation de clics : lecture YouTube/Drive à la demande (iframes chargées au clic seulement), lightbox, langue, thème |
-| Observers | Apparitions au scroll, lien actif du menu, compteurs animés des stats |
+| `type` | Type de section (voir tableau ci-dessous) — obligatoire |
+| `id` | Ancre de la section (`#id`) ; par défaut celle du type |
+| `nav` | Clé `ui.json` du lien de menu ; `false` = pas de lien ; par défaut celle du type |
+| `alt` | `true` = fond alterné (`section--alt`) |
+| `decor` | Décor de fond : `leaf-tr` / `leaf-bl` (feuilles du thème Jungle) |
+| autres | Options propres au type (`next`, `book`, `pastVisible`, `blocks`…) |
 
-**Carrousel vidéos** (`renderVideos` / `setupCarousel`) : défilement natif avec scroll-snap (swipe mobile, trackpad), flèches, clavier ←/→, glisser à la souris ; la carte la plus proche du centre devient active, et quitter une vidéo en cours retire son iframe (la lecture s'arrête).
+Sans `sections`, le moteur affiche les 7 types dans l'ordre par défaut. `npm run check` signale un
+type ou un bloc inconnu et un identifiant en double.
+
+| Type (`engine/sections/`) | Ancre | Contenu | Options |
+|---|---|---|---|
+| `hero` | `home` | Photo, logo, accroche, boutons | `next` (flèche / « Écouter » sans listenUrl, défaut : section suivante), `book` (défaut `contact`) |
+| `mixes` | `mixes` | Platine SoundCloud (`mixes.json`) | — |
+| `sessions` | `sets` | Vidéos YouTube (`sets.json`) | — |
+| `tour` | `dates` | Prochaine date, à venir, passées (+ flyers du Drive) | `pastVisible` (défaut 6) |
+| `videos` | `videos` | Carrousel des vidéos du Drive | — |
+| `epk` | `epk` | Dossier de presse | `blocks` : `stats`, `bio`, `sound`, `inspirations`, `photos`, `extra` (dossiers Drive libres), `downloads`, `setup` |
+| `contact` | `contact` | E-mail, téléphone, réseaux | — |
+
+Une section sans contenu (aucun mix, aucune vidéo, aucun set) se masque avec son lien de menu.
+
+## `engine/` (modules ES, sans dépendance)
+
+| Fichier | Rôle |
+|---|---|
+| `core.js` | Outils (`$`, `esc`, URLs Drive, préférences) et `createContext()` : charge les JSON, langue (`t`, `tr`, `fmt`), thème (`forTheme`), fichiers du Drive rangés par rôle (`ROLES`), galeries de la lightbox |
+| `app.js` | Construit les sections et le menu depuis `site.json`, puis gère langue, thème, lightbox, menu mobile, apparitions, ancres partagées (`/#epk`), Google Analytics |
+| `sections/index.js` | **Registre des types** (`SECTIONS`), ordre par défaut, décors |
+| `sections/<type>.js` | Un module par type de section |
+
+Un module de section exporte :
+
+```js
+export default {
+  id: 'dates',              // ancre par défaut
+  nav: 'nav.dates',         // clé ui.json du lien de menu (null = pas de lien)
+  className: 'section',     // classes de <section>
+  html(ctx, cfg) {},        // squelette HTML, inséré une fois
+  setup(ctx, el, cfg) {},   // écouteurs, une fois                       (facultatif)
+  render(ctx, el, cfg) {},  // contenu, relancé à chaque changement de langue (facultatif)
+  theme(ctx, el, cfg) {},   // photos par thème, relancé au changement de thème (facultatif)
+  track(target, ctx) {},    // clic à mesurer → ['événement', { paramètres }]   (facultatif)
+};
+```
+
+`ctx` donne accès au contenu (`ctx.site`, `ctx.dates`…), aux traductions (`ctx.t`, `ctx.tr`), aux
+fichiers du Drive (`ctx.photos`, `ctx.photo('hero', 0)`, `ctx.filesOf('flyers', 'image')`), à
+`ctx.artist` / `ctx.slug` (nom de l'artiste, jamais écrit en dur dans le moteur), `ctx.galleries`
+(lightbox), `ctx.hideSection(id)` et `ctx.observeReveal()`.
+
+Les lecteurs chargés au clic sont génériques : `data-yt="<id YouTube>"` et `data-drive="<id Drive>"`
+(iframe créée par `app.js`), `data-lb="<galerie>" data-i="<n>"` pour la lightbox.
+
+**Carrousel vidéos** (`sections/videos.js`) : défilement natif avec scroll-snap (swipe mobile, trackpad), flèches, clavier ←/→, glisser à la souris ; la carte la plus proche du centre devient active, et quitter une vidéo en cours retire son iframe (la lecture s'arrête).
 
 Les images Drive sont toujours des balises `<img referrerpolicy="no-referrer">` (jamais des `background-image` CSS, qui envoient un referrer et sont refusées par Google).
 
 Les vidéos ne chargent leur lecteur qu'au clic (miniature avant) : la page reste légère malgré
 14 vidéos Drive et 4 sets YouTube.
 
-### Ajouter une section
+### Ajouter un type de section
 
-1. `index.html` : ajouter `<section class="section" id="ma-section">` avec un titre
-   `<h2 class="h2" data-i18n="ma.cle">` et un conteneur vide.
-2. `ui.json` : ajouter la clé dans les 3 langues ; ajouter un lien dans `.nav__links` si besoin.
-3. `app.js` : écrire `renderMaSection()` et l'appeler dans `renderAll()`.
-4. Données : un nouveau `content/xxx.json` (ajouté au `Promise.all`) ou un champ dans `site.json`.
+1. Créer `engine/sections/mon-type.js` (modèle : `sessions.js`, le plus simple) et l'ajouter à
+   `SECTIONS` dans `engine/sections/index.js`.
+2. `ui.json` : ajouter les clés (titre, lien de menu) **dans les 3 langues**.
+3. Données : un nouveau `content/xxx.json` (ajouté au `Promise.all` de `core.js`) ou un champ de `site.json`.
+4. `site.json → sections` : ajouter `{ "type": "mon-type" }` à l'endroit voulu.
+5. Styles : dans `styles.css`, avec les variables des deux thèmes.
 
-Idées d'évolutions faciles : section **Press / Quotes** (citations de médias, comme sur le site
-de Haviah Mighty), **Mixes SoundCloud** (iframe SoundCloud au clic, comme YouTube), page
-**Merch**, formulaire de booking (Formspree/Netlify Forms), lien **calendrier .ics** des dates.
+Idées de types à venir (pour d'autres profils d'artistes) : **Press / Quotes** (citations de médias),
+**Discographie / sorties** (Spotify, Bandcamp, Beatport), **Membres** (groupes), **Merch**,
+formulaire de booking (Formspree/Netlify Forms).
 
 ## `styles.css`
 

@@ -1,5 +1,5 @@
 // Vérifie les fichiers de contenu avant publication : node scripts/check-content.mjs (ou npm run check)
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -57,6 +57,22 @@ if (site && drive) {
     for (const [theme, name] of entries) {
       if (!names.has(String(name).toLowerCase())) warnings.push(`site.json drive.${key}${theme ? `.${theme}` : ''} : "${name}" introuvable dans le Drive (renommé ? supprimé ?) → un autre fichier sera utilisé`);
     }
+  }
+  // Sections : types connus du moteur (un fichier par type dans engine/sections/), identifiants uniques
+  if (site.sections) {
+    const types = (await readdir(path.join(root, 'engine', 'sections'))).filter((f) => f !== 'index.js').map((f) => f.replace(/\.js$/, ''));
+    const epkSrc = await readFile(path.join(root, 'engine', 'sections', 'epk.js'), 'utf8');
+    const blocks = [...(epkSrc.split('export const BLOCKS')[1] || '').matchAll(/^ {2}(\w+): \{/gm)].map((m) => m[1]);
+    const ids = new Set();
+    site.sections.forEach((s, i) => {
+      const where = `site.json sections #${i + 1}`;
+      if (!types.includes(s.type)) { errors.push(`${where} : type "${s.type}" inconnu (${types.join(', ')})`); return; }
+      const id = s.id || ({ hero: 'home', sessions: 'sets', tour: 'dates' }[s.type] ?? s.type);
+      if (ids.has(id)) errors.push(`${where} : identifiant "${id}" déjà utilisé (ajouter "id": "autre-nom")`);
+      ids.add(id);
+      for (const b of s.blocks || []) if (!blocks.includes(b)) errors.push(`${where} (${s.type}) : bloc "${b}" inconnu (${blocks.join(', ')})`);
+    });
+    console.log(`• Sections : ${site.sections.map((s) => s.type).join(' → ')}`);
   }
   const ga = site.analytics?.ga4;
   if (ga && !/^G-[A-Z0-9]+$/.test(ga)) errors.push(`site.json analytics.ga4 : "${ga}" n'est pas un identifiant GA4 (format G-XXXXXXXXXX)`);

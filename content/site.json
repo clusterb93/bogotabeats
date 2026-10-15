@@ -7,6 +7,15 @@
     "es"
   ],
   "defaultTheme": "dark",
+  "sections": [
+    { "type": "hero", "next": "sets" },
+    { "type": "mixes", "decor": "leaf-tr" },
+    { "type": "sessions", "alt": true },
+    { "type": "tour", "alt": true },
+    { "type": "videos", "decor": "leaf-bl" },
+    { "type": "epk", "alt": true, "decor": "leaf-tr", "blocks": ["stats", "bio", "sound", "inspirations", "photos", "extra", "downloads", "setup"] },
+    { "type": "contact" }
+  ],
   "tagline": {
     "en": "Latin Club · Guaracha · Latin Tech · Reggaeton",
     "fr": "Latin Club · Guaracha · Latin Tech · Reggaeton",

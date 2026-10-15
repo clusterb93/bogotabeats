@@ -16,7 +16,7 @@ build ─► sync Drive + Google Sheets ─► check ─► commit des changemen
 ```
 
 - `scripts/build.mjs` ne met dans `dist/` que les fichiers publics : `index.html`, `styles.css`,
-  `app.js`, `content/`, plus le contenu de `public/` (`.htaccess`, `robots.txt`) et un `sitemap.xml`.
+  `engine/`, `content/`, plus le contenu de `public/` (`.htaccess`, `robots.txt`) et un `sitemap.xml`.
   La doc, les scripts et les modèles ne sont jamais publiés.
 - L'envoi SFTP (`lftp mirror`) ne transfère que ce qui a changé et **supprime sur le serveur les
   fichiers qui n'existent plus** → le dossier IONOS doit être **dédié au site**.

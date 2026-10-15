@@ -8,7 +8,7 @@ Le visiteur choisit avec le sélecteur **⚡ Rave | 🍃 Jungle** à droite du m
 - **Infobulle** au survol de chaque option (textes `theme.darkTip` / `theme.lightTip` dans `ui.json`).
 - **Bulle de découverte** « Two vibes for this site… » affichée une seule fois, 2,5 s après l'arrivée d'un nouveau visiteur sur ordinateur, fermée au bout de 9 s ou au premier clic (texte `theme.hint`).
 - Sur mobile, le sélecteur est dans le menu, sous le libellé « Choose the vibe » (`theme.label`).
-- Les icônes (éclair, feuille) sont dans `THEMES` en haut de `app.js`.
+- Les icônes (éclair, feuille), la couleur de barre du navigateur et le nom mesuré dans Analytics sont dans `THEMES` en haut de `engine/app.js`.
 
 | | 🌈 **Rave** — `dark` | 🌿 **Jungle** — `light` |
 |---|---|---|
@@ -50,7 +50,7 @@ Tout est en **variables CSS** en haut de `styles.css` : un bloc `[data-theme="da
 1. Copier un bloc `[data-theme="…"]` dans `styles.css` avec un nouveau nom (ex. `sunset`).
 2. Ajouter les photos de ce thème dans `site.json → drive.hero / aboutPhoto / bookingPhoto / logo`
    (ex. `"sunset": "photo.jpg"`).
-3. Adapter le bouton de thème dans `app.js` (fonction `renderChrome` et l'écouteur `#themeBtn`)
+3. Ajouter le thème dans `THEMES` en haut de `engine/app.js` (icône, couleur, nom) , et accepter son nom dans le petit script en haut de `index.html` ; le sélecteur affiche toutes les entrées de `THEMES`
    pour faire tourner les 3 thèmes.
 
 ## Les langues
@@ -74,7 +74,7 @@ Les dates sont formatées automatiquement dans la langue (21 NOV / 21 NOV. / 21 
 1. `site.json` : ajouter `"pt"` dans `languages`.
 2. `ui.json` : copier le bloc `"en"` en `"pt"` et traduire.
 3. `site.json` : ajouter `"pt": "…"` dans les textes à traduire (facultatif — sinon anglais).
-4. `app.js` : ajouter `pt: 'pt-BR'` dans `LOCALES` (format des dates).
+4. `site.json` : ajouter `"locales": { "pt": "pt-BR" }` pour choisir la variante du format des dates (facultatif : sinon `pt`).
 
 > ✋ La traduction espagnole a été générée : la faire relire par une personne hispanophone avant
 > diffusion large.
