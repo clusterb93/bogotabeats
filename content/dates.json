@@ -1,5 +1,18 @@
 [
   {
+    "date": "2026-10-22",
+    "event": {
+      "en": "Club Magma — with Guily Mac Arna & Noukiflex",
+      "fr": "Club Magma — avec Guily Mac Arna & Noukiflex",
+      "es": "Club Magma — con Guily Mac Arna & Noukiflex"
+    },
+    "venue": "Les Grands Gamins",
+    "city": "Rennes, FR",
+    "type": "club",
+    "time": "21:00–00:30",
+    "link": "https://www.instagram.com/club__magma/p/DerKNtHAKGx/"
+  },
+  {
     "date": "2026-10-17",
     "event": "La Petite Marée — b2b Noukiflex",
     "venue": "Salle des fêtes",
