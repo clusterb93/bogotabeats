@@ -11,16 +11,17 @@
 //   track(target, ctx)      clic à mesurer → [événement, paramètres] ou rien (facultatif)
 import hero from './hero.js';
 import mixes from './mixes.js';
+import releases from './releases.js';
 import sessions from './sessions.js';
 import tour from './tour.js';
 import videos from './videos.js';
 import epk from './epk.js';
 import contact from './contact.js';
 
-export const SECTIONS = { hero, mixes, sessions, tour, videos, epk, contact };
+export const SECTIONS = { hero, mixes, releases, sessions, tour, videos, epk, contact };
 
 // Page par défaut si site.json ne liste pas de sections
-export const DEFAULT_SECTIONS = ['hero', 'mixes', 'sessions', 'tour', 'videos', 'epk', 'contact'].map((type) => ({ type }));
+export const DEFAULT_SECTIONS = ['hero', 'mixes', 'releases', 'sessions', 'tour', 'videos', 'epk', 'contact'].map((type) => ({ type }));
 
 // Décors facultatifs posés en fond de section ("decor" dans site.json). Les feuilles ne sont visibles
 // que dans les thèmes qui les activent (--leaf-opacity) et utilisent le symbole #monstera d'index.html.

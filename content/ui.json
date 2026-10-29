@@ -65,7 +65,15 @@
     "consent.text": "This site uses Google Analytics to count visits and see which content people enjoy. No ads, no resale.",
     "consent.accept": "Accept",
     "consent.refuse": "Refuse",
-    "consent.manage": "Cookies"
+    "consent.manage": "Cookies",
+    "nav.music": "Music",
+    "music.title": "Productions",
+    "music.sub": "My own tracks — straight out of the studio.",
+    "music.out": "Out now",
+    "music.soon": "Coming soon",
+    "music.buy": "Buy on Bandcamp",
+    "music.teaser": "Exclusive teaser",
+    "music.play": "Play / pause"
   },
   "fr": {
     "nav.home": "Accueil",
@@ -133,7 +141,15 @@
     "consent.text": "Ce site utilise Google Analytics pour compter les visites et savoir quels contenus plaisent. Pas de pub, pas de revente.",
     "consent.accept": "Accepter",
     "consent.refuse": "Refuser",
-    "consent.manage": "Cookies"
+    "consent.manage": "Cookies",
+    "nav.music": "Musique",
+    "music.title": "Productions",
+    "music.sub": "Mes propres morceaux — tout droit sortis du studio.",
+    "music.out": "Disponible",
+    "music.soon": "Bientôt",
+    "music.buy": "Acheter sur Bandcamp",
+    "music.teaser": "Extrait en avant-première",
+    "music.play": "Lecture / pause"
   },
   "es": {
     "nav.home": "Inicio",
@@ -201,6 +217,14 @@
     "consent.text": "Este sitio usa Google Analytics para contar las visitas y saber qué contenidos gustan. Sin publicidad ni reventa.",
     "consent.accept": "Aceptar",
     "consent.refuse": "Rechazar",
-    "consent.manage": "Cookies"
+    "consent.manage": "Cookies",
+    "nav.music": "Música",
+    "music.title": "Producciones",
+    "music.sub": "Mis propios temas — directo del estudio.",
+    "music.out": "Ya disponible",
+    "music.soon": "Muy pronto",
+    "music.buy": "Comprar en Bandcamp",
+    "music.teaser": "Adelanto exclusivo",
+    "music.play": "Reproducir / pausa"
   }
 }

@@ -10,6 +10,7 @@
   "sections": [
     { "type": "hero", "next": "sets" },
     { "type": "mixes", "decor": "leaf-tr" },
+    { "type": "releases", "alt": true, "decor": "leaf-bl" },
     { "type": "sessions", "alt": true },
     { "type": "tour", "alt": true },
     { "type": "videos", "decor": "leaf-bl" },

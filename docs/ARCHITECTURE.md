@@ -22,6 +22,7 @@ content/ui.json    ─┤
 content/sets.json  ─┼──► engine/app.js ──► sections construites dans <main> de index.html
 content/dates.json ─┤
 content/mixes.json ─┤
+content/releases.json ─┤
 content/drive.json ─┘ ◄── scripts/sync-drive.mjs ◄── Google Drive + Google Sheets
 ```
 
@@ -62,6 +63,7 @@ type ou un bloc inconnu et un identifiant en double.
 |---|---|---|---|
 | `hero` | `home` | Photo, logo, accroche, boutons | `next` (flèche / « Écouter » sans listenUrl, défaut : section suivante), `book` (défaut `contact`) |
 | `mixes` | `mixes` | Platine SoundCloud (`mixes.json`) | — |
+| `releases` | `music` | Productions : sorties (Bandcamp, achat) et à venir (extrait MP3) (`releases.json`) | — |
 | `sessions` | `sets` | Vidéos YouTube (`sets.json`) | — |
 | `tour` | `dates` | Prochaine date, à venir, passées (+ flyers du Drive) | `pastVisible` (défaut 6) |
 | `videos` | `videos` | Carrousel des vidéos du Drive | — |

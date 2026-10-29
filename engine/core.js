@@ -43,8 +43,8 @@ export function nearestChild(box, items = [...box.children]) {
 const load = (f, fallback) => fetch(`content/${f}`, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : fallback)).catch(() => fallback);
 
 export async function createContext() {
-  const [site, ui, sets, dates, tree, mixes] = await Promise.all([
-    load('site.json', {}), load('ui.json', {}), load('sets.json', []), load('dates.json', []), load('drive.json', { files: [], folders: [] }), load('mixes.json', []),
+  const [site, ui, sets, dates, tree, mixes, releases] = await Promise.all([
+    load('site.json', {}), load('ui.json', {}), load('sets.json', []), load('dates.json', []), load('drive.json', { files: [], folders: [] }), load('mixes.json', []), load('releases.json', []),
   ]);
 
   const LANGS = site.languages || Object.keys(ui);
@@ -54,7 +54,7 @@ export async function createContext() {
   const pick = (l) => (LANGS.includes(l) ? l : null);
 
   const ctx = {
-    site, ui, sets, dates, tree, mixes,
+    site, ui, sets, dates, tree, mixes, releases,
     LANGS, DEFAULT_LANG, LOCALES,
     lang: pick(params.get('lang')) || pick(store.get('lang')) || DEFAULT_LANG,
     artist: site.artist || '',

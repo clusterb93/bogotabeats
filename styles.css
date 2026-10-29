@@ -259,6 +259,44 @@ body::after {
 .deck.is-playing .track.is-current .track__play::after { border: 0; width: 12px; height: 13px; left: 50%; background: linear-gradient(90deg, currentColor 0 35%, transparent 35% 65%, currentColor 65%); }
 .mixes__all { margin-top: 30px; }
 
+/* PRODUCTIONS : morceaux sortis (Bandcamp) et à venir (extrait) */
+.releases__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.release { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--line); overflow: hidden; }
+[data-theme="dark"] .release:hover { box-shadow: 0 0 0 1px var(--accent), 0 0 40px -10px rgba(255, 62, 200, .45); }
+[data-theme="light"] .release { border: 0; border-radius: 22px; box-shadow: 0 24px 50px -28px rgba(43, 28, 18, .45); }
+.release__cover { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg-alt); }
+.release__cover img { width: 100%; height: 100%; object-fit: cover; }
+.release__ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 20px; text-align: center; font: 400 clamp(2.6rem, 6vw, 4.6rem)/.95 var(--display); text-transform: uppercase; letter-spacing: .04em; color: var(--on-accent); background: var(--bar); }
+[data-theme="dark"] .release__ph { text-shadow: 0 0 24px rgba(255, 255, 255, .45); }
+.release__ph::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, transparent 0 18px, color-mix(in srgb, var(--on-accent) 8%, transparent) 18px 20px); }
+.release__badge { position: absolute; top: 16px; left: 16px; padding: 8px 12px; font: 800 .72rem/1 var(--body); text-transform: uppercase; letter-spacing: .14em; background: var(--bg); color: var(--text); }
+.release--soon .release__badge { color: var(--accent); animation: soon-pulse 1.8s ease-in-out infinite; }
+[data-theme="light"] .release__badge { border-radius: 999px; }
+[data-theme="light"] .release--soon .release__badge { background: var(--accent-2); color: var(--on-accent); }
+@keyframes soon-pulse { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 25%, transparent); } }
+.release__body { display: flex; flex-direction: column; gap: 10px; padding: 24px 26px 28px; flex: 1; }
+.release__genre { margin: 0; font: 800 .75rem/1 var(--body); text-transform: uppercase; letter-spacing: .14em; color: var(--accent); }
+[data-theme="light"] .release__genre { color: var(--accent-2); }
+.release__title { margin: 0; font: 400 clamp(1.8rem, 3.4vw, 2.6rem)/1 var(--display); text-transform: uppercase; letter-spacing: .03em; }
+.release__meta { margin: 0; color: var(--muted); font-size: .9rem; }
+.release__player { margin-top: 6px; min-height: 120px; }
+.release__player iframe { width: 100%; height: 120px; border: 0; display: block; }
+.release__buy { align-self: flex-start; margin-top: auto; }
+[data-theme="light"] .release__buy { border-radius: 999px; }
+/* Petit lecteur de l'extrait */
+.teaser { display: grid; grid-template-columns: 52px 1fr auto; align-items: center; gap: 16px; margin-top: auto; padding: 14px 16px; background: var(--bg-alt); border: 1px solid var(--line); }
+[data-theme="light"] .teaser { border-radius: 14px; }
+.teaser__play { width: 52px; height: 52px; border-radius: 50%; border: 0; background: var(--accent); color: var(--on-accent); position: relative; cursor: pointer; transition: transform .15s, box-shadow .2s; }
+.teaser__play:hover { transform: scale(1.06); box-shadow: var(--btn-glow); }
+.teaser__play::after { content: ''; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-left: 14px solid currentColor; border-top: 9px solid transparent; border-bottom: 9px solid transparent; }
+.teaser.is-playing .teaser__play::after { border: 0; left: 50%; width: 14px; height: 16px; background: linear-gradient(90deg, currentColor 0 35%, transparent 35% 65%, currentColor 65%); }
+.teaser__txt { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.teaser__label { font: 800 .75rem/1 var(--body); text-transform: uppercase; letter-spacing: .12em; }
+.teaser__bar { display: block; height: 6px; background: var(--line); cursor: pointer; position: relative; }
+.teaser__bar span { display: block; height: 100%; width: 0; background: var(--bar); }
+.teaser__time { font: 400 1.1rem/1 var(--display); color: var(--muted); min-width: 3ch; text-align: right; }
+@media (max-width: 760px) { .releases__grid { grid-template-columns: 1fr; } }
+
 /* SETS */
 .sets { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
 .yt { position: relative; aspect-ratio: 16/9; background: #111 center/cover; border: 0; padding: 0; width: 100%; overflow: hidden; }

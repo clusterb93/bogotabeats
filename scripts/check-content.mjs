@@ -46,6 +46,22 @@ if (Array.isArray(mixes)) {
   console.log(`• ${mixes.length} mixes SoundCloud`);
 }
 
+const releases = await json('releases.json');
+if (Array.isArray(releases)) {
+  const today = new Date().toISOString().slice(0, 10);
+  for (const [i, r] of releases.entries()) {
+    const where = `releases.json #${i + 1} (${r.title || '?'})`;
+    if (!r.title) errors.push(`${where} : champ "title" vide`);
+    if (r.date && (!/^\d{4}-\d{2}-\d{2}$/.test(r.date) || isNaN(new Date(r.date)))) errors.push(`${where} : date "${r.date}" invalide, format attendu AAAA-MM-JJ`);
+    if (r.bandcamp && !/^https:\/\/[\w-]+\.bandcamp\.com\//.test(r.bandcamp)) warnings.push(`${where} : lien Bandcamp non reconnu "${r.bandcamp}"`);
+    if (r.bandcampTrack && !/^\d+$/.test(String(r.bandcampTrack))) errors.push(`${where} : bandcampTrack doit être l'identifiant numérique du morceau`);
+    if (r.teaser && !(await readFile(path.join(root, r.teaser)).catch(() => null))) errors.push(`${where} : extrait "${r.teaser}" introuvable`);
+    if ((!r.date || r.date > today) && !r.teaser) warnings.push(`${where} : à venir mais sans extrait ("teaser")`);
+  }
+  const out = releases.filter((r) => r.date && r.date <= today).length;
+  console.log(`• ${releases.length} productions (${out} sorties, ${releases.length - out} à venir)`);
+}
+
 if (site && drive) {
   const names = new Set();
   const walk = (f) => { f.files.forEach((x) => names.add(x.name.toLowerCase())); f.folders.forEach(walk); };

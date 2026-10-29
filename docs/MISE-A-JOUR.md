@@ -132,6 +132,25 @@ simplement à Claude « mets à jour les dates depuis mon Instagram », il relit
 - Conseil : garder les mêmes que tes **titres épinglés** SoundCloud (5 max, c'est le plus lisible).
 - Le bouton « All mixes on SoundCloud » pointe vers `site.json → listenUrl`.
 
+## 2 ter. Tes productions 🎹
+
+`content/releases.json` — tes morceaux (section **Productions**, lien de menu « Music ») :
+
+```json
+[
+  { "title": "Pantera", "genre": "Latin Club", "release": "Catalyst (VA)", "label": "Purple Records", "date": "2026-07-10",
+    "cover": "https://f4.bcbits.com/img/…_10.jpg", "bandcamp": "https://purple-music.bandcamp.com/track/…", "bandcampTrack": "3001707884" },
+  { "title": "Toque Pary", "genre": "Guaracha", "teaser": "content/audio/toque-pary-teaser.mp3" }
+]
+```
+
+- **Statut automatique** d'après `date` (AAAA-MM-JJ) : date passée = « Out now » + lecteur Bandcamp + bouton
+  « Acheter sur Bandcamp » ; pas de date ou date future = badge « Coming soon » + extrait.
+- À la sortie d'un morceau : ajouter `date`, `bandcamp`, `bandcampTrack` (et `cover`) — il passe tout seul en « sorti ».
+- `bandcampTrack` : identifiant numérique, visible dans le code d'intégration Bandcamp (Share/Embed → `track=…`).
+- `teaser` : **un extrait court seulement** (MP3 ~45 s dans `content/audio/`), jamais le morceau complet ni un
+  lien Drive (le fichier entier serait téléchargeable).
+
 ## 3. Photos, vidéos, logos, documents 🖼️
 
 Tout passe par le **Drive**, puis `npm run sync` :
