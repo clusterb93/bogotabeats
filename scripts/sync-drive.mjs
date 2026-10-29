@@ -125,6 +125,35 @@ async function syncSheets(tree) {
   }
 }
 
+// --- Favicon clair / sombre ------------------------------------------------------------------
+// content/favicon.svg contient les deux logos (site.json → drive.logo : "dark" et "light") et affiche
+// celui qui convient au thème du navigateur (prefers-color-scheme). Images intégrées en base64 :
+// un favicon SVG ne peut pas charger d'image externe.
+async function syncFavicon(tree) {
+  const logos = tree.folders.filter((f) => /logo/.test(norm(f.name))).flatMap(allFiles).filter((f) => f.kind === 'image');
+  if (!logos.length) return;
+  const byName = (name) => name && logos.find((f) => norm(f.name) === norm(name));
+  const light = /white|blanc/;
+  const pick = { dark: byName(site.drive.logo?.dark) || logos.find((f) => light.test(norm(f.name))) || logos[0],
+    light: byName(site.drive.logo?.light) || logos.find((f) => !light.test(norm(f.name))) || logos[0] };
+  const data = {};
+  for (const [mode, f] of Object.entries(pick)) {
+    const res = await fetch(`https://lh3.googleusercontent.com/d/${f.id}=w128`);
+    const type = res.headers.get('content-type') || '';
+    if (!res.ok || !type.startsWith('image/')) { console.warn(`  ⚠ favicon : logo "${f.name}" illisible (HTTP ${res.status}) – favicon.svg inchangé`); return; }
+    data[mode] = `data:${type.split(';')[0]};base64,${Buffer.from(await res.arrayBuffer()).toString('base64')}`;
+  }
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<!-- Généré par scripts/sync-drive.mjs (logos du Drive) : ne pas modifier à la main -->
+<style>.d{display:none}@media (prefers-color-scheme:dark){.l{display:none}.d{display:inline}}</style>
+<image class="l" width="64" height="64" href="${data.light}"/>
+<image class="d" width="64" height="64" href="${data.dark}"/>
+</svg>
+`;
+  await writeFile(path.join(root, 'content/favicon.svg'), svg);
+  console.log(`✔ favicon.svg ← "${pick.light.name}" (navigateur clair) / "${pick.dark.name}" (sombre)`);
+}
+
 const tree = await walk(ROOT_ID, site.drive.label || 'Drive', 0);
 const out = { syncedAt: new Date().toISOString(), ...tree };
 await writeFile(path.join(root, 'content/drive.json'), JSON.stringify(out, null, 2) + '\n');
@@ -132,3 +161,4 @@ await writeFile(path.join(root, 'content/drive.json'), JSON.stringify(out, null,
 const count = (f) => f.files.length + f.folders.reduce((n, s) => n + count(s), 0);
 console.log(`✔ drive.json mis à jour : ${count(tree)} fichiers, ${tree.folders.length} sous-dossiers (${tree.folders.map((f) => f.name).join(', ')})`);
 await syncSheets(tree);
+await syncFavicon(tree);

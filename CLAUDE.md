@@ -6,7 +6,7 @@ Site + EPK du DJ **BogotaBeats**. Statique, sans dépendance ni framework (le «
 
 - **Contenu ≠ code.** Une demande de contenu (date, set, bio, photo) se traite dans `content/*.json`
   ou dans le Drive, jamais en dur dans `index.html` / `engine/`.
-- `content/drive.json` est **généré** par `npm run sync` : ne pas l'éditer à la main.
+- `content/drive.json` et `content/favicon.svg` sont **générés** par `npm run sync` : ne pas les éditer à la main.
 - Toute nouvelle chaîne d'interface va dans `content/ui.json` **pour les 3 langues** (en, fr, es).
   Tout texte de contenu dans `site.json` suit le format `{ "en", "fr", "es" }`.
 - Toute nouvelle couleur passe par une **variable CSS définie dans les deux thèmes** (Rave & Jungle).

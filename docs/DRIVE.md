@@ -50,6 +50,15 @@ Fichiers **à la racine** du Drive :
 
 Les Google Sheets ne sont jamais affichées comme documents téléchargeables.
 
+## Favicon (icône de l'onglet)
+
+`npm run sync` génère aussi `content/favicon.svg` à partir des deux logos choisis dans
+`site.json → drive.logo` : le logo `light` (foncé) pour un navigateur en mode clair, le logo `dark`
+(blanc) pour un navigateur en mode sombre — le navigateur bascule tout seul. Les images y sont
+intégrées (un favicon SVG ne peut pas charger d'image externe) : changer de logo dans le Drive puis
+relancer la synchro suffit. Safari, qui ne lit pas les favicons SVG, affiche le PNG foncé déclaré
+dans `index.html`.
+
 ## Conseils de nommage
 
 - **Logos** : mettre `white` ou `blanc` dans le nom de la version pour fond sombre.

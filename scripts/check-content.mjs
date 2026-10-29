@@ -90,6 +90,7 @@ if (site && drive) {
     });
     console.log(`• Sections : ${site.sections.map((s) => s.type).join(' → ')}`);
   }
+  if (!(await readFile(path.join(root, 'content', 'favicon.svg'), 'utf8').catch(() => ''))) warnings.push('content/favicon.svg absent : lancer npm run sync (le favicon PNG sera utilisé)');
   const ga = site.analytics?.ga4;
   if (ga && !/^G-[A-Z0-9]+$/.test(ga)) errors.push(`site.json analytics.ga4 : "${ga}" n'est pas un identifiant GA4 (format G-XXXXXXXXXX)`);
   console.log(ga ? `• Google Analytics : ${ga}` : '• Google Analytics : désactivé (analytics.ga4 vide)');
